@@ -1,28 +1,45 @@
-Creative Commons Attribution-NoDerivatives 4.0 International Public License (CC BY-ND 4.0)
+MIT License with Commons Clause Restriction
 
-This software is licensed under the Creative Commons Attribution-NoDerivatives 4.0 International Public License.
+Copyright (c) [Year] [Your Name or Organization]
 
-You are free to:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights  
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell  
+copies of the Software, and to permit persons to whom the Software is  
+furnished to do so, subject to the following conditions:
 
-✔ Share — copy and redistribute the material in any medium or format  
-✔ Use — include the code in your own projects (commercial or non-commercial)
+The above copyright notice and this permission notice shall be included in all  
+copies or substantial portions of the Software.
 
-Under the following terms:
-
-🔒 NoDerivatives — If you remix, transform, or build upon the material, you may not distribute the modified material.  
-📝 Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-
-🚫 No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
-
-License summary:  
-https://creativecommons.org/licenses/by-nd/4.0/  
-Full legal code:  
-https://creativecommons.org/licenses/by-nd/4.0/legalcode
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR  
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,  
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE  
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER  
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  
+SOFTWARE.
 
 ---
 
-Author: TangZhikai  
-Contact: https://github.com/AlfonsoKevin/redis-tools 
+**Commons Clause License Condition v1.0**
+
+The Software is provided under the MIT License above, with the following  
+additional restriction:
+
+**“You may not sell the Software.”**
+
+For the purposes of this license, "sell" means practicing any or all of the  
+rights granted to you under the MIT License to provide the Software to third  
+parties for a fee or other consideration, including as part of a service  
+offering. This includes without limitation using the Software to provide a  
+hosted service, or combining the Software with any other software offered  
+under a different license in a manner that results in a commercial offering.
+
+---
+
+Author: TangZhikai
+Contact: https://github.com/AlfonsoKevin/redis-tools
 Date: 2025-4-23
 Project: redis-tools
 

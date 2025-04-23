@@ -83,17 +83,15 @@ redis:
 ```
 
 ### 🤖最近更新
-- 2025/4/24 发布到中央仓库，补充Redis基础工具类
+- 2025/4/24 发布到中央仓库，补充Redis基础工具类(很少一部分，期待后续完善)，规范日志输出，调整Bean名称
+- 
 ### 待办清单 TODO
 
-- 调整Bean名称
-- 调整日志的实现，使用`LoggerFactory.getLogger`
 - 完善限流策略的不同算法补充..
-- 将提供Redis的基础工具类，简化操作
 
 ### 注意事项
 
-- This project is licensed under the CC BY-NC-ND 4.0 License – see the [LICENSE](LICENSE) file for details.
+- This project is licensed under the MIT + Commons Clause – see the [LICENSE](LICENSE) file for details.
 - 欢迎贡献代码或者提出建议，您可以通过提出 Issue 或者 Pull Request 的方式参与到项目中来。
 
 ## 参与贡献
