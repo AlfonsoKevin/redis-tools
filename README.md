@@ -84,7 +84,8 @@ redis:
 
 ### 🤖最近更新
 - 2025/4/24 发布到中央仓库，补充Redis基础工具类(很少一部分，期待后续完善)，规范日志输出，调整Bean名称
-- 
+- 2025/4/24 Debug: 原配置的 @ConditionalOnClass(RedissonClient.class) 条件错误，导致自动配置仅在 Redisson 已存在时触发。若项目没有将会抛出异常。
+- 2025/4/24 Debug: 自定义Bean名称后未修改完全使得会出现NPE
 ### 待办清单 TODO
 
 - 完善限流策略的不同算法补充..

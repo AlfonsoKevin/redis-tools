@@ -20,7 +20,7 @@ public class FrequencyControlStrategyFactory {
     }
 
     public FrequencyControlStrategy getFrequencyControlStrategy(FrequencyControl.ControlType type){
-        return limitStrategyGroup.get(type.toString());
+        return limitStrategyGroup.get(type.getName());
     }
 
 }

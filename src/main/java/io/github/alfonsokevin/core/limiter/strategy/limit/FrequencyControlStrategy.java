@@ -1,6 +1,7 @@
 package io.github.alfonsokevin.core.limiter.strategy.limit;
 
 import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
+import io.github.alfonsokevin.core.limiter.exception.FrequencyControlException;
 
 /**
  * @description: 限流策略
@@ -14,5 +15,16 @@ public interface FrequencyControlStrategy {
      * @param frequencyControl 速率限流器注解
      * @return
      */
-    boolean tryAcquire(String key, FrequencyControl frequencyControl);
+    boolean tryAcquire(String key, FrequencyControl frequencyControl) throws FrequencyControlException;
+
+
+    /**
+     * 使用ResourceLoader读取Lua脚本的方式
+     * @param path 类路径下的路径
+     * @return 读取到的Lua脚本
+     * @throws Exception
+     */
+    default String loadScript(String path) throws Exception {
+        return "";
+    }
 }

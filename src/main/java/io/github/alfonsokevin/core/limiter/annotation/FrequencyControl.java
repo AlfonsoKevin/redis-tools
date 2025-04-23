@@ -58,9 +58,9 @@ public @interface FrequencyControl {
          * 令牌桶
          * 滑动窗口
          */
-        DEFAULT("REDIS_FRE_DEFAULT"),
-        TOKEN_BUCKET("REDIS_FRE_TOKEN_BUCKET"),
-        SLIDING_WINDOW("REDIS_FRE_SLIDING_WINDOW");
+        DEFAULT("REDIS_FREQ_DEFAULT"),
+        TOKEN_BUCKET("REDIS_FREQ_TOKEN_BUCKET"),
+        SLIDING_WINDOW("REDIS_FREQ_SLIDING_WINDOW");
 
         private String name;
 

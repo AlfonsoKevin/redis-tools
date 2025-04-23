@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @create: 2025-04-22 01:20
  * @author: TangZhiKai
  **/
-@Component(value = "REDIS_FRE_DEFAULT")
+@Component(value = "REDIS_FREQ_DEFAULT")
 @RequiredArgsConstructor
 public class DefaultFrequencyControlStrategy implements FrequencyControlStrategy {
 

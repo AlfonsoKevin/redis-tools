@@ -28,7 +28,7 @@ public class KeyStrategyFactory {
      * @return
      */
     public GeneratorKeyStrategy getKeyStrategy(FrequencyControl.KeyType type){
-        return generatorKeyGroup.getOrDefault(type.toString(),new KeyStrategy());
+        return generatorKeyGroup.getOrDefault(type.getName(),new KeyStrategy());
     }
 
 
