@@ -1,12 +1,10 @@
 package io.github.alfonsokevin.core.limiter.strategy.limit.impl;
 
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
-import io.github.alfonsokevin.core.limiter.aspect.FrequencyControlAspect;
 import io.github.alfonsokevin.core.limiter.strategy.limit.FrequencyControlStrategy;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.*;
 import org.springframework.stereotype.Component;
 

@@ -1,11 +1,10 @@
 package io.github.alfonsokevin.core.limiter.strategy.key.impl;
 
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
-import io.github.alfonsokevin.core.limiter.aspect.FrequencyControlAspect;
 import io.github.alfonsokevin.core.limiter.strategy.key.GeneratorKeyStrategy;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;

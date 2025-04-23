@@ -6,7 +6,7 @@
 
     <groupId>io.github.alfonsokevin</groupId>
     <artifactId>redis-tools</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.1.0-RELEASE</version>
     <name>redis-tools</name>
     <description>Provide a rich variety of components and functions</description>
     <url>https://github.com/AlfonsoKevin/redis-tools</url>
