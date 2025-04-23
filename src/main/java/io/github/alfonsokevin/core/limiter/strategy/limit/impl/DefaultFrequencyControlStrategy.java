@@ -1,6 +1,9 @@
 package io.github.alfonsokevin.core.limiter.strategy.limit.impl;
 
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
+import io.github.alfonsokevin.core.limiter.aspect.FrequencyControlAspect;
 import io.github.alfonsokevin.core.limiter.strategy.limit.FrequencyControlStrategy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +18,11 @@ import java.util.concurrent.TimeUnit;
  * @create: 2025-04-22 01:20
  * @author: TangZhiKai
  **/
-@Slf4j
-@Component(value = "DEFAULT")
+@Component(value = "REDIS_FRE_DEFAULT")
 @RequiredArgsConstructor
 public class DefaultFrequencyControlStrategy implements FrequencyControlStrategy {
 
-
+    private static final Logger log = LoggerFactory.getLogger(DefaultFrequencyControlStrategy.class);
     private final RedissonClient redissonClient;
 
     /**
@@ -68,7 +70,7 @@ public class DefaultFrequencyControlStrategy implements FrequencyControlStrategy
             redissonRateLimiter
                     .trySetRate(RateType.OVERALL, rate, unit.toMillis(intervalTimes), RateIntervalUnit.MILLISECONDS);
         }
-        log.info("限流速率器的配置为，使用的策略是: {} ,{} 毫秒 之内允许点击{}次数",
+        log.debug("[{FrequencyControl}]: >> 限流速率器的配置为，使用的策略是: {} ,{} 毫秒 之内允许点击{}次数",
                 redissonRateLimiter.getConfig().getRateType(), redissonRateLimiter.getConfig().getRateInterval(),
                 redissonRateLimiter.getConfig().getRate());
         return redissonRateLimiter;

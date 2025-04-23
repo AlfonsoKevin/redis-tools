@@ -57,6 +57,14 @@
 
 1.引入依赖
 
+```xml
+<dependency>
+    <groupId>io.github.alfonsokevin</groupId>
+    <artifactId>redis-tools</artifactId>
+    <version>1.0.0-RELEASE</version>
+</dependency>
+```
+
 2.环境中配置redis的配置 (查看RedisToolsProperties)
 
 ```yml
@@ -74,8 +82,11 @@ redis:
 @SpringBootApplication(scanBasePackages = {"io.github.alfonsokevin"})
 ```
 
+### 🤖最近更新
+- 2025/4/24 发布到中央仓库，补充Redis基础工具类
 ### 待办清单 TODO
 
+- 调整Bean名称
 - 调整日志的实现，使用`LoggerFactory.getLogger`
 - 完善限流策略的不同算法补充..
 - 将提供Redis的基础工具类，简化操作

@@ -1,6 +1,9 @@
 package io.github.alfonsokevin.core.limiter.strategy.key.impl;
 
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
+import io.github.alfonsokevin.core.limiter.aspect.FrequencyControlAspect;
 import io.github.alfonsokevin.core.limiter.strategy.key.GeneratorKeyStrategy;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
@@ -12,9 +15,10 @@ import java.lang.reflect.Method;
  * @create: 2025-04-22 14:54
  * @author: TangZhiKai
  **/
-@Component(value = "KEY")
+@Component(value = "REDIS_FRE_KEY")
 public class KeyStrategy implements GeneratorKeyStrategy {
 
+    private static final Logger log = LoggerFactory.getLogger(KeyStrategy.class);
     /**
      * 直接使用默认的用户自定义的
      * @param frequencyControl
@@ -23,6 +27,7 @@ public class KeyStrategy implements GeneratorKeyStrategy {
      */
     @Override
     public String getKey(FrequencyControl frequencyControl, ProceedingJoinPoint joinPoint, Method method) {
+        log.debug("[{FrequencyControl}]: >> keyTypeStrategy:{}",frequencyControl.keyType());
         return frequencyControl.key();
     }
 }

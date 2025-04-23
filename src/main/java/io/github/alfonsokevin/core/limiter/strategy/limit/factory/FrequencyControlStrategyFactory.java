@@ -12,7 +12,6 @@ import java.util.Map;
  * @author: TangZhiKai
  **/
 @Component
-@Slf4j
 public class FrequencyControlStrategyFactory {
     private final Map<String, FrequencyControlStrategy> limitStrategyGroup;
     //构造注入

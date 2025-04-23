@@ -1,5 +1,7 @@
 package io.github.alfonsokevin.core.limiter.aspect;
 
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import io.github.alfonsokevin.core.config.RedisToolsAutoConfiguration;
 import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
 import io.github.alfonsokevin.core.limiter.exception.FrequencyControlBuilder;
@@ -28,12 +30,12 @@ import java.util.Objects;
 
 @Aspect
 @Component
-@Slf4j
 // 指定在其他自动配置类应用之后启动
 @AutoConfigureAfter(RedisToolsAutoConfiguration.class)
 @RequiredArgsConstructor
 public class FrequencyControlAspect {
 
+    private static final Logger log = LoggerFactory.getLogger(FrequencyControlAspect.class);
 
     @Autowired
     @Qualifier("redissonToolsClient")
@@ -46,9 +48,10 @@ public class FrequencyControlAspect {
     @PostConstruct
     public void init() {
         if (Objects.isNull(redissonClient)) {
-            log.error("启动失败，请检查Redis配置");
+            log.error("[{FrequencyControl}]: >> Startup failed, please check Redis configuration");
         }
-        log.info("项目启动成功，速率限流器将开启~~ redissonClient:{}",redissonClient.getConfig());
+        log.debug("[{FrequencyControl}]: >> The project has been successfully launched ~~ redissonClient:{}"
+                ,redissonClient.getConfig());
     }
 
     @Pointcut("@annotation(frequencyControl)")
@@ -60,22 +63,25 @@ public class FrequencyControlAspect {
     public Object around(ProceedingJoinPoint joinPoint, FrequencyControl frequencyControl) throws Throwable {
         // 1.如果不存在rateLimiter直接返回
         if (Objects.isNull(frequencyControl)) {
-            log.error("方法上没有添加注解");
-            throw new IllegalArgumentException("速率限流器将无法使用");
+            // 方法上没有添加注解
+            log.error("[{FrequencyControl}]: >> No annotations have been added to the method");
+            throw new IllegalArgumentException("[{FrequencyControl}]: >> The FrequencyControl will not be able to be used");
         }
         // 2.如果容器中没启动redissonClient则直接返回
         if (Objects.isNull(redissonClient)) {
-            log.info("容器中不存在redissonClient，无法启动速率限流器..");
+            log.debug("[{FrequencyControl}]: >> 容器中不存在redissonClient，Unable to activate the FrequencyControl..");
             throw FrequencyControlBuilder.build(frequencyControl.exceptionClass(), frequencyControl.message());
         }
         // 3.如果请求的不是http请求，抛出异常
         ServletRequestAttributes servletRequestAttributes =
                 (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (Objects.isNull(servletRequestAttributes)) {
-            log.error("请求非HTTP请求!!速率限流器将无法使用");
+            log.error("[{FrequencyControl}]: >> Request non HTTP request!! " +
+                    "The FrequencyControl will not be able to be used");
             throw FrequencyControlBuilder.build(frequencyControl.exceptionClass(), frequencyControl.message());
         }
-        log.info("速率限流器开始工作....");
+        // 速率限流器开始工作....
+        log.debug("[{FrequencyControl}]: >> The FrequencyControl starts working");
         HttpServletRequest request = servletRequestAttributes.getRequest();
 
         // 4.获取速率限流器，如果速率限流器次数达到了要求，那么发出告警
@@ -87,7 +93,7 @@ public class FrequencyControlAspect {
         //获取工厂，取到自己想要的限流实现
         FrequencyControlStrategy rateLimiterStrategy = limiterTypeStrategyFactory.getFrequencyControlStrategy(frequencyControl.type());
         boolean result = rateLimiterStrategy.tryAcquire(key, frequencyControl);
-        log.info("开始限流 key:{}, intervalTimes:{}, unit:{}, rate:{}, url:{}, key:{}",
+        log.debug("[{FrequencyControl}]: >> Start limiting current key:{}, intervalTimes:{}, unit:{}, rate:{}, url:{}, key:{}",
                 frequencyControl.key(),frequencyControl.intervalTimes(),frequencyControl.unit(),frequencyControl.rate(),request.getRequestURI(),key);
         if (!result) {
             //直接使用静态缓存构造器避免多次反射

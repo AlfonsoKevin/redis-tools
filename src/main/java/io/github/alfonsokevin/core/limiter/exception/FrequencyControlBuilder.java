@@ -1,5 +1,9 @@
 package io.github.alfonsokevin.core.limiter.exception;
 
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
+import io.github.alfonsokevin.core.limiter.aspect.FrequencyControlAspect;
+
 import java.lang.reflect.Constructor;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -8,6 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author: TangZhiKai
  **/
 public class FrequencyControlBuilder {
+
+    private static final Logger log = LoggerFactory.getLogger(FrequencyControlBuilder.class);
+
     /**
      * CACHE_MAP 静态缓存构造器
      * 便于找到具体异常字节码对象的构造器
@@ -30,11 +37,13 @@ public class FrequencyControlBuilder {
                 try {
                     return c.getConstructor(String.class);
                 } catch (NoSuchMethodException e) {
+                    log.error("[{FrequencyControl}]: >> Abnormal initialization error of FrequencyControl",e);
                     throw new IllegalStateException("速率限流器异常初始化错误 ~~", e);
                 }
             });
             return constructor.newInstance(message);
         } catch (Exception e) {
+            log.error("[{FrequencyControl}]: >> Abnormal initialization error of FrequencyControl",e);
             throw new IllegalStateException("速率限流器异常初始化错误 ~~", e);
         }
     }

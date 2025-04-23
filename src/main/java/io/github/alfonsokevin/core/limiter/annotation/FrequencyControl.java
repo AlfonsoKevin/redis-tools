@@ -53,12 +53,23 @@ public @interface FrequencyControl {
      * 限流策略枚举
      */
     enum ControlType {
-        //默认
-        DEFAULT,
-        //令牌桶
-        TOKEN_BUCKET,
-        //滑动窗口
-        SLIDING_WINDOW
+        /**
+         * 默认
+         * 令牌桶
+         * 滑动窗口
+         */
+        DEFAULT("REDIS_FRE_DEFAULT"),
+        TOKEN_BUCKET("REDIS_FRE_TOKEN_BUCKET"),
+        SLIDING_WINDOW("REDIS_FRE_SLIDING_WINDOW");
+
+        private String name;
+
+        ControlType(String name){
+            this.name = name;
+        }
+        public String getName() {
+            return name;
+        }
     }
 
     /**
@@ -77,7 +88,21 @@ public @interface FrequencyControl {
      * 注解key的类型
      */
     enum KeyType{
-        KEY,
-        EL
+        /**
+         * 自定义KEY
+         * SpringEL
+         */
+        KEY("REDIS_FRE_KEY"),
+        EL("REDIS_FRE_EL");
+
+        private String name;
+
+        KeyType(String name){
+            this.name = name;
+        }
+        public String getName() {
+            return name;
+        }
     }
+
 }
