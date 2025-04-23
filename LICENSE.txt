@@ -1,28 +1,28 @@
-Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International
+Creative Commons Attribution-NoDerivatives 4.0 International Public License (CC BY-ND 4.0)
 
-Copyright (c) 2025 TangZhikai
-
-This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+This software is licensed under the Creative Commons Attribution-NoDerivatives 4.0 International Public License.
 
 You are free to:
 
-- Share — copy and redistribute the material in any medium or format
+✔ Share — copy and redistribute the material in any medium or format  
+✔ Use — include the code in your own projects (commercial or non-commercial)
 
 Under the following terms:
 
-- Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
-  You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+🔒 NoDerivatives — If you remix, transform, or build upon the material, you may not distribute the modified material.  
+📝 Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
 
-- NonCommercial — You may not use the material for commercial purposes.
+🚫 No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 
-- NoDerivatives — If you remix, transform, or build upon the material, you may not distribute the modified material.
+License summary:  
+https://creativecommons.org/licenses/by-nd/4.0/  
+Full legal code:  
+https://creativecommons.org/licenses/by-nd/4.0/legalcode
 
-- No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+---
 
-Full License Text: https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-License Summary (Human-Readable): https://creativecommons.org/licenses/by-nc-nd/4.0/
+Author: TangZhikai  
+Contact: https://github.com/AlfonsoKevin/redis-tools 
+Date: 2025-4-23
+Project: redis-tools
 
-Disclaimer:
-
-This license does not affect the author's moral rights.
-All rights not expressly granted to you are reserved by the copyright holder.

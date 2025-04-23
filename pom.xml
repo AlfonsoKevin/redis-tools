@@ -4,17 +4,51 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.AlfonsoKevin</groupId>
+    <groupId>io.github.alfonsokevin</groupId>
     <artifactId>redis-tools</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
+    <name>redis-tools</name>
+    <description>Provide a rich variety of components and functions</description>
+    <url>https://github.com/AlfonsoKevin/redis-tools</url>
+    <licenses>
+        <license>
+            <name>MIT + Commons Clause</name>
+            <url>https://commonsclause.com/</url>
+        </license>
+    </licenses>
+    <!-- 开发人员信息 -->
+    <developers>
+        <developer>
+            <id>maven-central-redis-tools</id>
+            <name>TangZhikai</name>
+            <email>2641324109@qq.com</email>
+            <roles>
+                <role>Project Manager</role>
+                <role>Developer</role>
+            </roles>
+            <organization>https://github.com/AlfonsoKevin/redis-tools</organization>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+    <scm>
+        <url>
+            https://github.com/AlfonsoKevin/redis-tools
+        </url>
+        <connection>
+            scm:git@github.com:AlfonsoKevin/redis-tools.git
+        </connection>
+        <developerConnection>
+            scm:git@github.com:AlfonsoKevin/redis-tools.git
+        </developerConnection>
+    </scm>
+
+    <inceptionYear>2025</inceptionYear>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -83,22 +117,94 @@
 
     <build>
         <plugins>
-            <!-- 打成普通jar，不需要可执行 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.2</version>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass></mainClass> <!-- 不要填 mainClass -->
-                        </manifest>
-                    </archive>
+                    <encoding>UTF-8</encoding>
+                    <resources>
+                        <resource>
+                            <directory>src/main/resources</directory>
+                            <filtering>false</filtering>
+                        </resource>
+                    </resources>
                 </configuration>
+            </plugin>
+            <!--   central发布插件    -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.4.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>maven-central-redis-tools</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                </configuration>
+            </plugin>
+            <!--   source源码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--   javadoc插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                    <aggregate>true</aggregate>
+                    <additionalJOption>-Xdoclint:none</additionalJOption>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--gpg加密-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <configuration>
+                    <!--指定 GPG 执行程序的路径-->
+                    <executable>D:\tools\Gpg\GnuPG\bin\gpg.exe</executable>
+                    <!--指定用于签名的 GPG 密钥名称。-->
+<!--                    <keyname>lxwise</keyname>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
             </plugin>
         </plugins>
     </build>
-
-
 </project>
