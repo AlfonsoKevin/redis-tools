@@ -2,6 +2,7 @@ package io.github.alfonsokevin.core.limiter.strategy.key.factory;
 
 
 import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
+import io.github.alfonsokevin.core.limiter.enums.KeyType;
 import io.github.alfonsokevin.core.limiter.strategy.key.GeneratorKeyStrategy;
 import io.github.alfonsokevin.core.limiter.strategy.key.impl.KeyStrategy;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class KeyStrategyFactory {
      * @param type
      * @return
      */
-    public GeneratorKeyStrategy getKeyStrategy(FrequencyControl.KeyType type){
+    public GeneratorKeyStrategy getKeyStrategy(KeyType type){
         return generatorKeyGroup.getOrDefault(type.getName(),new KeyStrategy());
     }
 

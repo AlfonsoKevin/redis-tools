@@ -1,6 +1,6 @@
 package io.github.alfonsokevin.core.limiter.strategy.key;
 
-import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
+import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import org.aspectj.lang.ProceedingJoinPoint;
 import java.lang.reflect.Method;
 

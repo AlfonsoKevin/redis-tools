@@ -1,9 +1,9 @@
 package io.github.alfonsokevin.core.limiter.strategy.key.impl;
 
 
+import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
 import io.github.alfonsokevin.core.limiter.strategy.key.GeneratorKeyStrategy;
 import io.github.alfonsokevin.core.utils.SpElUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -23,24 +23,26 @@ public class ElStrategy implements GeneratorKeyStrategy {
 
     @Override
     public String getKey(FrequencyControl frequencyControl, ProceedingJoinPoint joinPoint, Method method) {
-        String originalKey = frequencyControl.key();
-        if(originalKey == null || originalKey.length() == 0) {
+        String originalKey = frequencyControl.getKey();
+        if (originalKey == null || originalKey.length() == 0) {
+            log.debug("[{FrequencyControl}]: >> params error");
             throw new IllegalArgumentException("参数异常");
         }
         String parseKey = SpElUtils.parseEl(method, joinPoint.getArgs(), originalKey);
         String methodPrefix = SpElUtils.getMethodPrefix(method);
-        log.debug("[{FrequencyControl}]: >> keyTypeStrategy:{}",frequencyControl.keyType());
-        return this.getCacheKey(methodPrefix,parseKey);
+        log.debug("[{FrequencyControl}]: >> keyTypeStrategy:{}", frequencyControl.getKeyType().toString());
+        return this.getCacheKey(methodPrefix, parseKey);
     }
 
     /**
      * 获取解析之后的完整key
+     *
      * @param methodPrefix
      * @param parseKey
      * @return
      */
     private String getCacheKey(String methodPrefix, String parseKey) {
-        return String.format("%s:%s",methodPrefix,parseKey);
+        return String.format("%s:%s", methodPrefix, parseKey);
     }
 }
 

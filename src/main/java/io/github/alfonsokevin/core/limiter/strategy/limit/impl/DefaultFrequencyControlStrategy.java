@@ -1,8 +1,8 @@
 package io.github.alfonsokevin.core.limiter.strategy.limit.impl;
 
+import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
 import io.github.alfonsokevin.core.limiter.strategy.limit.FrequencyControlStrategy;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.*;
@@ -48,10 +48,10 @@ public class DefaultFrequencyControlStrategy implements FrequencyControlStrategy
      */
     public RRateLimiter getRedissonRateLimiter(FrequencyControl frequencyControl, String currentKey) {
         // 考虑使用哪种key
-        RRateLimiter redissonRateLimiter = redissonClient.getRateLimiter(Optional.ofNullable(currentKey).orElse(frequencyControl.key()));
-        long rate = frequencyControl.rate();
-        long intervalTimes = frequencyControl.intervalTimes();
-        TimeUnit unit = frequencyControl.unit();
+        RRateLimiter redissonRateLimiter = redissonClient.getRateLimiter(Optional.ofNullable(currentKey).orElse(frequencyControl.getKey()));
+        long rate = frequencyControl.getRate();
+        long intervalTimes = frequencyControl.getIntervalTimes();
+        TimeUnit unit = frequencyControl.getUnit();
         if (!redissonRateLimiter.isExists()) {
             // 获取配置好的限定时间intervalTimes下的count次数
             redissonRateLimiter.trySetRate(RateType.OVERALL, rate, unit.toMillis(intervalTimes), RateIntervalUnit.MILLISECONDS);
@@ -61,7 +61,7 @@ public class DefaultFrequencyControlStrategy implements FrequencyControlStrategy
         RateLimiterConfig config = redissonRateLimiter.getConfig();
         long originalRateInterval = config.getRateInterval();
         long originRate = config.getRate();
-        if (TimeUnit.MILLISECONDS.convert(intervalTimes, frequencyControl.unit()) != originalRateInterval
+        if (TimeUnit.MILLISECONDS.convert(intervalTimes, frequencyControl.getUnit()) != originalRateInterval
                 || rate != originRate) {
             // 如果重启过，使用的原有的配置，将其删除修改为最新的配置
             redissonRateLimiter.delete();

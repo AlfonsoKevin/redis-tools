@@ -1,7 +1,7 @@
 package io.github.alfonsokevin.core.limiter.strategy.key.impl;
 
 import com.alibaba.fastjson.JSON;
-import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
+import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import io.github.alfonsokevin.core.limiter.strategy.key.GeneratorKeyStrategy;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
@@ -19,15 +19,17 @@ import java.lang.reflect.Method;
 public class KeyStrategy implements GeneratorKeyStrategy {
 
     private static final Logger log = LoggerFactory.getLogger(KeyStrategy.class);
+
     /**
      * 直接使用默认的用户自定义的
+     *
      * @param frequencyControl
      * @param method
      * @return
      */
     @Override
     public String getKey(FrequencyControl frequencyControl, ProceedingJoinPoint joinPoint, Method method) {
-        log.debug("[{FrequencyControl}]: >> keyTypeStrategy:{}", frequencyControl.keyType(),toString());
-        return frequencyControl.key();
+        log.debug("[{FrequencyControl}]: >> keyTypeStrategy:{}", frequencyControl.getKeyType().toString());
+        return frequencyControl.getKey();
     }
 }

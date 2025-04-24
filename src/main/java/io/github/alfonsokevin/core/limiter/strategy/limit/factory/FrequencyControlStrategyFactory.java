@@ -1,6 +1,7 @@
 package io.github.alfonsokevin.core.limiter.strategy.limit.factory;
 
 import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
+import io.github.alfonsokevin.core.limiter.enums.ControlType;
 import io.github.alfonsokevin.core.limiter.strategy.limit.FrequencyControlStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class FrequencyControlStrategyFactory {
         this.limitStrategyGroup = limitStrategyGroup;
     }
 
-    public FrequencyControlStrategy getFrequencyControlStrategy(FrequencyControl.ControlType type){
+    public FrequencyControlStrategy getFrequencyControlStrategy(ControlType type){
         return limitStrategyGroup.get(type.getName());
     }
 

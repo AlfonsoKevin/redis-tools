@@ -68,10 +68,13 @@ public class FrequencyControlAspect {
             log.error("[{FrequencyControl}]: >> No annotations have been added to the method");
             throw new IllegalArgumentException("[{FrequencyControl}]: >> The FrequencyControl will not be able to be used");
         }
+        //获取具体的枚举实体对象，而不是使用注解
+        io.github.alfonsokevin.core.limiter.model.FrequencyControl control =
+                io.github.alfonsokevin.core.limiter.model.FrequencyControl.of(frequencyControl);
         // 2.如果容器中没启动redissonClient则直接返回
         if (Objects.isNull(redissonClient)) {
             log.debug("[{FrequencyControl}]: >> 容器中不存在redissonClient，Unable to activate the FrequencyControl..");
-            throw FrequencyControlBuilder.build(frequencyControl.exceptionClass(), frequencyControl.message());
+            throw FrequencyControlBuilder.build(control.getExceptionClass(), control.getMessage());
         }
         // 3.如果请求的不是http请求，抛出异常
         ServletRequestAttributes servletRequestAttributes =
@@ -79,7 +82,7 @@ public class FrequencyControlAspect {
         if (Objects.isNull(servletRequestAttributes)) {
             log.error("[{FrequencyControl}]: >> Request non HTTP request!! " +
                     "The FrequencyControl will not be able to be used");
-            throw FrequencyControlBuilder.build(frequencyControl.exceptionClass(), frequencyControl.message());
+            throw FrequencyControlBuilder.build(control.getExceptionClass(), control.getMessage());
         }
         // 速率限流器开始工作....
         log.debug("[{FrequencyControl}]: >> The FrequencyControl starts working");
@@ -87,18 +90,18 @@ public class FrequencyControlAspect {
 
         // 4.获取速率限流器，如果速率限流器次数达到了要求，那么发出告警
         //获取具体生成key的策略
-        GeneratorKeyStrategy keyStrategy = keyStrategyFactory.getKeyStrategy(frequencyControl.keyType());
+        GeneratorKeyStrategy keyStrategy = keyStrategyFactory.getKeyStrategy(control.getKeyType());
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-        String key = keyStrategy.getKey(frequencyControl, joinPoint, method);
+        String key = keyStrategy.getKey(control, joinPoint, method);
 
         //获取工厂，取到自己想要的限流实现
-        FrequencyControlStrategy rateLimiterStrategy = limiterTypeStrategyFactory.getFrequencyControlStrategy(frequencyControl.type());
-        boolean result = rateLimiterStrategy.tryAcquire(key, frequencyControl);
+        FrequencyControlStrategy rateLimiterStrategy = limiterTypeStrategyFactory.getFrequencyControlStrategy(control.getType());
+        boolean result = rateLimiterStrategy.tryAcquire(key, control);
         log.debug("[{FrequencyControl}]: >> Start limiting current key:{}, intervalTimes:{}, unit:{}, rate:{}, url:{}, key:{}",
-                frequencyControl.key(),frequencyControl.intervalTimes(),frequencyControl.unit(),frequencyControl.rate(),request.getRequestURI(),key);
+                control.getKey(),control.getIntervalTimes(),control.getUnit(),control.getRate(),request.getRequestURI(),key);
         if (!result) {
             //直接使用静态缓存构造器避免多次反射
-            throw FrequencyControlBuilder.build(frequencyControl.exceptionClass(), frequencyControl.message());
+            throw FrequencyControlBuilder.build(control.getExceptionClass(), control.getMessage());
         }
         return joinPoint.proceed();
     }

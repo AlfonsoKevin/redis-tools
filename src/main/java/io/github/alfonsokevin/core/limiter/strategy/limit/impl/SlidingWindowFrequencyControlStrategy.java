@@ -1,8 +1,8 @@
 package io.github.alfonsokevin.core.limiter.strategy.limit.impl;
 
-import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
 import io.github.alfonsokevin.core.limiter.exception.FrequencyControlBuilder;
 import io.github.alfonsokevin.core.limiter.exception.FrequencyControlException;
+import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import io.github.alfonsokevin.core.limiter.strategy.limit.FrequencyControlStrategy;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -24,25 +24,26 @@ import java.util.Collections;
  * @author: TangZhiKai
  **/
 @Component(value = "REDIS_FREQ_SLIDING_WINDOW")
-@RequiredArgsConstructor //将所有final字段构造函数中初始化
+@RequiredArgsConstructor // 将所有final字段构造函数中初始化
 public class SlidingWindowFrequencyControlStrategy implements FrequencyControlStrategy {
 
     private static final Logger log = LoggerFactory.getLogger(SlidingWindowFrequencyControlStrategy.class);
 
     private final StringRedisTemplate stringRedisTemplate;
     private final ResourceLoader resourceLoader;
+
     @Override
     public boolean tryAcquire(String key, FrequencyControl frequencyControl) throws FrequencyControlException {
         // 时间单位换算为毫秒
-        long interval = frequencyControl.unit().toMillis(frequencyControl.intervalTimes());
-        long maxRequest = frequencyControl.rate();
+        long interval = frequencyControl.getUnit().toMillis(frequencyControl.getIntervalTimes());
+        long maxRequest = frequencyControl.getRate();
 
         String luaScript;
         try {
             luaScript = loadScript("lua/sliding_window.lua");
-        }catch (Exception e){
-            log.error("[{FrequencyControl}]: >> load lua script failed~~",e);
-            throw  FrequencyControlBuilder.build(frequencyControl.exceptionClass(), frequencyControl.message());
+        } catch (Exception e) {
+            log.error("[{FrequencyControl}]: >> load lua script failed~~", e);
+            throw FrequencyControlBuilder.build(frequencyControl.getExceptionClass(), frequencyControl.getMessage());
         }
         // 当前时间戳（毫秒）
         long now = System.currentTimeMillis();
@@ -61,6 +62,7 @@ public class SlidingWindowFrequencyControlStrategy implements FrequencyControlSt
 
     /**
      * 使用ResourceLoader读取Lua脚本的方式
+     *
      * @param path 类路径下的路径
      * @return 读取到的Lua脚本
      * @throws Exception
