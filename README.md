@@ -61,7 +61,7 @@
 <dependency>
     <groupId>io.github.alfonsokevin</groupId>
     <artifactId>redis-tools</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.1.0-RELEASE</version>
 </dependency>
 ```
 
@@ -79,10 +79,11 @@ redis:
 3.Spring 默认**不会自动扫描外部 jar 包中的类**，需要在引导类中指定包路径
 
 ```java
-@SpringBootApplication(scanBasePackages = {"io.github.alfonsokevin"})
+@SpringBootApplication(scanBasePackages = {"io.github.alfonsokevin","io.xxx.*"})
 ```
 
 ### 🤖最近更新
+- 2025/4/25 将注解属性封装为实体，方便调用
 - 2025/4/24 发布到中央仓库，补充Redis基础工具类(很少一部分，期待后续完善)，规范日志输出，调整Bean名称
 - 2025/4/24 Debug: 原配置的 @ConditionalOnClass(RedissonClient.class) 条件错误，导致自动配置仅在 Redisson 已存在时触发。若项目没有将会抛出异常。
 - 2025/4/24 Debug: 自定义Bean名称后未修改完全使得会出现NPE
@@ -93,11 +94,11 @@ redis:
 ### 注意事项
 
 - This project is licensed under the MIT + Commons Clause – see the [LICENSE](LICENSE) file for details.
-- 欢迎贡献代码或者提出建议，您可以通过提出 Issue 或者 Pull Request 的方式参与到项目中来。
+- 欢迎提出建议，您可以通过提出 Issue 的方式参与到项目中来。
 
 ## 参与贡献
 
-如果您对项目有任何建议或想要贡献代码，欢迎提交 Issue 或 Pull Request。
+如果您对项目有任何建议或想要贡献代码，欢迎提交 Issue 。
 
 ---
 
