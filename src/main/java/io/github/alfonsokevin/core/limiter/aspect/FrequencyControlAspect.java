@@ -92,7 +92,7 @@ public class FrequencyControlAspect {
         //获取具体生成key的策略
         GeneratorKeyStrategy keyStrategy = keyStrategyFactory.getKeyStrategy(control.getKeyType());
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-        String key = keyStrategy.getKey(control, joinPoint, method);
+        String key = keyStrategy.getKey(control, joinPoint, method,request);
 
         //获取工厂，取到自己想要的限流实现
         FrequencyControlStrategy rateLimiterStrategy = limiterTypeStrategyFactory.getFrequencyControlStrategy(control.getType());

@@ -13,14 +13,41 @@ import java.util.concurrent.TimeUnit;
  **/
 @Data
 public class FrequencyControl {
+    /**
+     * http接口请求路径唯一key
+     */
     private String key;
+    /**
+     * 限定时间内
+     */
     private long intervalTimes;
+    /**
+     * 总次数
+     */
     private long rate;
+    /**
+     * 限流时间单位
+     */
     private TimeUnit unit;
+    /**
+     * 默认的异常枚举
+     */
     private Class<? extends RuntimeException> exceptionClass;
+    /**
+     * 默认的抛出异常之后的消息
+     */
     private String message;
+    /**
+     * 限流策略
+     */
     private ControlType type;
+    /**
+     * 使用令牌桶算法的容量
+     */
     private int capacity;
+    /**
+     * 注解的单位
+     */
     private KeyType keyType;
 
     /**

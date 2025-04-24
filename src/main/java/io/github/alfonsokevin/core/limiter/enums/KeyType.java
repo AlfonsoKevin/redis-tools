@@ -14,10 +14,10 @@ public enum KeyType {
     /**
      * 自定义KEY
      * SpringEL
+     * 请求的IP地址
      */
-    KEY("REDIS_FRE_KEY"),
-    EL("REDIS_FRE_EL");
-
-    private final String name;
+    KEY,
+    EL,
+    IP;
 
 }

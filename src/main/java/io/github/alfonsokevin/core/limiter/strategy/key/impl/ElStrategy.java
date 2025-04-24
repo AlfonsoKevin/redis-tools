@@ -1,6 +1,7 @@
 package io.github.alfonsokevin.core.limiter.strategy.key.impl;
 
 
+import io.github.alfonsokevin.core.limiter.enums.KeyType;
 import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import io.github.alfonsokevin.core.utils.SpElUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**
@@ -16,13 +18,14 @@ import java.lang.reflect.Method;
  * @create: 2025-04-22 14:55
  * @author: TangZhiKai
  **/
-@Component(value = "REDIS_FRE_EL")
+@Component
 public class ElStrategy implements GeneratorKeyStrategy {
 
     private static final Logger log = LoggerFactory.getLogger(ElStrategy.class);
 
     @Override
-    public String getKey(FrequencyControl frequencyControl, ProceedingJoinPoint joinPoint, Method method) {
+    public String getKey(FrequencyControl frequencyControl, ProceedingJoinPoint joinPoint,
+                         Method method, HttpServletRequest request) {
         String originalKey = frequencyControl.getKey();
         if (originalKey == null || originalKey.length() == 0) {
             log.debug("[{FrequencyControl}]: >> params error");
@@ -43,6 +46,15 @@ public class ElStrategy implements GeneratorKeyStrategy {
      */
     private String getCacheKey(String methodPrefix, String parseKey) {
         return String.format("%s:%s", methodPrefix, parseKey);
+    }
+
+    /**
+     * 获取key类型
+     * @return
+     */
+    @Override
+    public KeyType getKeyType() {
+        return KeyType.EL;
     }
 }
 

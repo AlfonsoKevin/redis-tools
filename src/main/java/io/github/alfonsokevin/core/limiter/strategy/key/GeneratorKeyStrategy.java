@@ -1,7 +1,10 @@
 package io.github.alfonsokevin.core.limiter.strategy.key;
 
+import io.github.alfonsokevin.core.limiter.enums.KeyType;
 import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import org.aspectj.lang.ProceedingJoinPoint;
+
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**
@@ -19,5 +22,12 @@ public interface GeneratorKeyStrategy {
      * @param method
      * @return 不同策略下的key
      */
-    String getKey(FrequencyControl frequencyControl, ProceedingJoinPoint joinPoint, Method method);
+    String getKey(FrequencyControl frequencyControl, ProceedingJoinPoint joinPoint,
+                  Method method, HttpServletRequest request);
+
+    /**
+     * 获取key类型
+     * @return
+     */
+    KeyType getKeyType();
 }

@@ -7,7 +7,10 @@ import io.github.alfonsokevin.core.limiter.strategy.key.GeneratorKeyStrategy;
 import io.github.alfonsokevin.core.limiter.strategy.key.impl.KeyStrategy;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @description: Key的策略工厂
@@ -17,10 +20,11 @@ import java.util.Map;
 @Component
 public class KeyStrategyFactory {
 
-    private final Map<String, GeneratorKeyStrategy> generatorKeyGroup;
+    private final Map<KeyType, GeneratorKeyStrategy> generatorKeyGroup;
 
-    public KeyStrategyFactory(Map<String,GeneratorKeyStrategy> generatorKeyGroup){
-        this.generatorKeyGroup = generatorKeyGroup;
+    public KeyStrategyFactory(List<GeneratorKeyStrategy> keyStrategyList){
+        this.generatorKeyGroup = keyStrategyList.stream()
+                .collect(Collectors.toMap(GeneratorKeyStrategy::getKeyType, Function.identity()));
     }
 
     /**
@@ -29,7 +33,7 @@ public class KeyStrategyFactory {
      * @return
      */
     public GeneratorKeyStrategy getKeyStrategy(KeyType type){
-        return generatorKeyGroup.getOrDefault(type.getName(),new KeyStrategy());
+        return generatorKeyGroup.get(type);
     }
 
 
