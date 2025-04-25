@@ -48,8 +48,9 @@
 #### 😎 目前实现的功能
 
 - 基于Redisson的速率限流器，可自定义异常信息，自定义Key的策略(自定义key/SpringEL表达式解析)，目前提供了默认的限流算法进行计算，后期将完善其他的限流算法和进一步扩展。
-- Redis的构建key的封装
-- 其他，提供了SpringEL表达式的工具类
+- Redis的构建key的封装。[使用文档](./src/main/java/io/github/alfonsokevin/core/limiter/docs/Freq.md)
+  - Redis的基本操作类，工具类，这个都比较常见 `DefaultRedisOperations`,`RedisKeyUtils`
+- 提供了SpringEL表达式的工具类 `SpELUtils`
 
 ### 🚀快速开始
 
@@ -83,7 +84,7 @@ redis:
 ```
 
 ### 🤖最近更新
-- 2025/4/25 补充对于IP的key生成策略，对IP限流
+- 2025/4/25 补充对于IP的key生成策略，对IP限流。补充限流速率器为文档。
 - 2025/4/25 将注解属性封装为实体，方便调用
 - 2025/4/24 发布到中央仓库，补充Redis基础工具类(很少一部分，期待后续完善)，规范日志输出，调整Bean名称
 - 2025/4/24 Debug: 原配置的 @ConditionalOnClass(RedissonClient.class) 条件错误，导致自动配置仅在 Redisson 已存在时触发。若项目没有将会抛出异常。
