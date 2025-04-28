@@ -46,11 +46,14 @@
 - **⚡ 性能优化**-静态缓存构造器等预先调优
 
 #### 😎 目前实现的功能
-
 - 基于Redisson的速率限流器，可自定义异常信息，自定义Key的策略(自定义key/SpringEL表达式解析)，目前提供了默认的限流算法进行计算，后期将完善其他的限流算法和进一步扩展。
 - Redis的构建key的封装。[使用文档](./src/main/java/io/github/alfonsokevin/core/limiter/docs/Freq.md)
-  - Redis的基本操作类，工具类，这个都比较常见 `DefaultRedisOperations`,`RedisKeyUtils`
+- Redis的基本操作类，工具类，这个都比较常见 `DefaultRedisOperations`,`RedisKeyUtils`
 - 提供了SpringEL表达式的工具类 `SpELUtils`
+- 提供了基于Redis的基本工具类`DefaultRedisOperations`，规范接口，可以自定义扩展的实现
+- 提供了`RedisCacheable`注解，注解参考SpringCacheable实现了功能，轻量。提供了查询key为null之后的处理策略
+- 提供了`RedisCacheEvict注解`,注解可以延时时长，极大程度提高了原有延时双删的使用
+- 提供了工具类的统一异常类，`AbstractRedisToolsException`，抛出组件异常的时候可以使用具体的组件子类
 
 ### 🚀快速开始
 
@@ -62,7 +65,7 @@
 <dependency>
     <groupId>io.github.alfonsokevin</groupId>
     <artifactId>redis-tools</artifactId>
-    <version>1.1.0-RELEASE</version>
+    <version>1.3.0-RELEASE</version>
 </dependency>
 ```
 
@@ -84,6 +87,8 @@ redis:
 ```
 
 ### 🤖最近更新
+- 2025/4/28 为新增组件完善文档
+- 2025/4/28 推出`@RedisCacheEvict`注解，发布到中央仓库。并且统一指定了工具类异常，每个的组件异常和状态码。使用1.3.0-RELEASE
 - 2025/4/27 推出`@RedisCacheable`注解，发布到中央仓库，使用1.2.0-RELEASE;
 - 2025/4/25 补充对于IP的key生成策略，对IP限流。补充速率限流器为文档;
 - 2025/4/25 将注解属性封装为实体，方便调用;
@@ -94,11 +99,13 @@ redis:
 - Redis其他组件..
 - 添加额外参数，并判断是否要拼接prefixkey
 - 完善限流策略的不同算法补充..
+- 完善文档，补充部分组件的压测
 
 ### 注意事项
 
 - This project is licensed under the MIT + Commons Clause – see the [LICENSE](LICENSE) file for details.
 - 欢迎提出建议，您可以通过提出 Issue 的方式参与到项目中来。
+- 目前项目没有经过大量测试，有些许不足之处，仍处于开发阶段，如果发现了bug，可以提出issue，感谢你的支持。
 
 ## 参与贡献
 

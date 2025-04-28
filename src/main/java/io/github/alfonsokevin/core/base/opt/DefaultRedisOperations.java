@@ -1,4 +1,4 @@
-package io.github.alfonsokevin.core.opt;
+package io.github.alfonsokevin.core.base.opt;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

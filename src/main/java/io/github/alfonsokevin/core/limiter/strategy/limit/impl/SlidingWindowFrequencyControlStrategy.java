@@ -1,7 +1,7 @@
 package io.github.alfonsokevin.core.limiter.strategy.limit.impl;
 
-import io.github.alfonsokevin.core.limiter.exception.FrequencyControlBuilder;
-import io.github.alfonsokevin.core.limiter.exception.FrequencyControlException;
+import io.github.alfonsokevin.core.base.exception.impl.FrequencyControlBuilder;
+import io.github.alfonsokevin.core.base.exception.impl.FrequencyControlException;
 import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import io.github.alfonsokevin.core.limiter.strategy.limit.FrequencyControlStrategy;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,6 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 

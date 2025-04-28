@@ -1,4 +1,4 @@
-package io.github.alfonsokevin.core.utils;
+package io.github.alfonsokevin.core.base.utils;
 
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.expression.EvaluationContext;

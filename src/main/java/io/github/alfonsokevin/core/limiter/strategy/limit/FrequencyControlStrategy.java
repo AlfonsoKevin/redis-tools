@@ -1,6 +1,6 @@
 package io.github.alfonsokevin.core.limiter.strategy.limit;
 
-import io.github.alfonsokevin.core.limiter.exception.FrequencyControlException;
+import io.github.alfonsokevin.core.base.exception.impl.FrequencyControlException;
 import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 
 /**

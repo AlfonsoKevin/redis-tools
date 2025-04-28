@@ -1,5 +1,6 @@
 package io.github.alfonsokevin.core.limiter.model;
 
+import io.github.alfonsokevin.core.base.exception.AbstractRedisToolsException;
 import io.github.alfonsokevin.core.limiter.enums.ControlType;
 import io.github.alfonsokevin.core.limiter.enums.KeyType;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class FrequencyControl {
     /**
      * 默认的异常枚举
      */
-    private Class<? extends RuntimeException> exceptionClass;
+    private Class<? extends AbstractRedisToolsException> exceptionClass;
     /**
      * 默认的抛出异常之后的消息
      */

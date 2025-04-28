@@ -6,7 +6,7 @@ import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.alfonsokevin.core.limiter.strategy.key.GeneratorKeyStrategy;
-import io.github.alfonsokevin.core.utils.SpElUtils;
+import io.github.alfonsokevin.core.base.utils.SpElUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 

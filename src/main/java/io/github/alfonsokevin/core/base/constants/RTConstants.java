@@ -1,4 +1,4 @@
-package io.github.alfonsokevin.core.constants;
+package io.github.alfonsokevin.core.base.constants;
 
 /**
  * @description:

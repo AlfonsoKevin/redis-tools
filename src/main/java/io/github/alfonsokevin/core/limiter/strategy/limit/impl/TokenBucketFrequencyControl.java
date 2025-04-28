@@ -1,23 +1,13 @@
 package io.github.alfonsokevin.core.limiter.strategy.limit.impl;
 
-import io.github.alfonsokevin.core.limiter.enums.ControlType;
-import io.github.alfonsokevin.core.limiter.exception.FrequencyControlBuilder;
 import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import io.github.alfonsokevin.core.limiter.strategy.limit.FrequencyControlStrategy;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StreamUtils;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @description: 令牌桶限流策略

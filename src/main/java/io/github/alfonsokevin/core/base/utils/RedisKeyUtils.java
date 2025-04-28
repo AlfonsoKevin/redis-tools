@@ -1,4 +1,4 @@
-package io.github.alfonsokevin.core.utils;
+package io.github.alfonsokevin.core.base.utils;
 
 import java.util.Collection;
 import java.util.Collections;

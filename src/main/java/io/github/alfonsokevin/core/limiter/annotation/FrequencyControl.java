@@ -1,8 +1,9 @@
 package io.github.alfonsokevin.core.limiter.annotation;
 
+import io.github.alfonsokevin.core.base.exception.AbstractRedisToolsException;
 import io.github.alfonsokevin.core.limiter.enums.ControlType;
 import io.github.alfonsokevin.core.limiter.enums.KeyType;
-import io.github.alfonsokevin.core.limiter.exception.FrequencyControlException;
+import io.github.alfonsokevin.core.base.exception.impl.FrequencyControlException;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +39,7 @@ public @interface FrequencyControl {
     /**
      * 默认的异常枚举
      */
-    Class<? extends RuntimeException> exceptionClass() default FrequencyControlException.class;
+    Class<? extends AbstractRedisToolsException> exceptionClass() default FrequencyControlException.class;
 
     /**
      * 默认的抛出异常之后的消息

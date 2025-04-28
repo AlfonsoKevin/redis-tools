@@ -26,9 +26,16 @@
 - `rate`指定时间内的点击次数，默认是1
 
 - `exceptionClass`默认的异常枚举，如果请求上限，抛出异常，你可以指定异常抛出的类型
+  详细说下，你可以通过指定异常的形式，来让你的速率限流器抛出默认异常。执行的异常类型必须是
+  继承自`AbstractRedisToolsException`的子类。推荐使用的做法是，最好抛出对应组件`FrequencyControlException`
+  异常。如果是手动抛出，最好的做法是使用**静态缓存构造器的形式抛出**，见下
+  ```java
+  throw new FrequencyControlException("error message", FreqResultCode.FREQ_INITIALIZATION_ERROR.getCode());
+  ```
 
 - `message`指定异常抛出后的消息
 
-- `type `是指限流策略，默认是`DEFAULT`，误差比较大，使用的是固定窗口。要想误差小一些，可以使用滑动窗口`SLIDING_WINDOW`类型。令牌桶目前未实现。
+- `type `是指限流策略，默认是`DEFAULT`，误差比较大，使用的是固定窗口。要想误差小一些， 可以使用滑动窗口`SLIDING_WINDOW`类型。
+令牌桶目前未实现。
 
 你可以根据你想要的方式定义。如果范围时间内超过了请求的次数，就会抛出异常，拒绝访问。

@@ -4,7 +4,7 @@ package io.github.alfonsokevin.core.cache.strategy.keygen.impl;
 import io.github.alfonsokevin.core.cache.model.RedisCacheable;
 import io.github.alfonsokevin.core.cache.model.enums.KeyType;
 import io.github.alfonsokevin.core.cache.strategy.keygen.CacheableKeyGenerator;
-import io.github.alfonsokevin.core.utils.SpElUtils;
+import io.github.alfonsokevin.core.base.utils.SpElUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
