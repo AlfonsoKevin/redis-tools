@@ -23,6 +23,7 @@
 ## 目录结构&设计🚀
 
 ```txt
+├─📄 README.md                         # 文档说明
 └─📁 src
   └─📁 main
     └─📁 java
@@ -30,9 +31,15 @@
         └─📁 github
           └─📁 alfonsokevin
             └─📁 core
-              ├─📁 config           # Redis的配置
-              ├─📁 limiter          # Redis限流速率器工具类
-              └─📁 utils            # Redis的基础工具类
+              ├─📁 base                # 基础包
+              │ ├─📁 constants         # 项目中的常量类
+              │ ├─📁 docs              # 文档说明
+              │ ├─📁 exception         # 统一工具异常类
+              │ ├─📁 opt               # 基础操作类
+              │ └─📁 utils             # 其他的工具类
+              ├─📁 cache               # 缓存包
+              ├─📁 config              # 配置包
+              └─📁 limiter             # 限流包
 ```
 
 
@@ -48,12 +55,12 @@
 #### 😎 目前实现的功能
 - 基于Redisson的速率限流器，可自定义异常信息，自定义Key的策略(自定义key/SpringEL表达式解析)，目前提供了默认的限流算法进行计算，后期将完善其他的限流算法和进一步扩展。
 - Redis的构建key的封装。[使用文档](./src/main/java/io/github/alfonsokevin/core/limiter/docs/Freq.md)
-- Redis的基本操作类，工具类，这个都比较常见 `DefaultRedisOperations`,`RedisKeyUtils`
-- 提供了SpringEL表达式的工具类 `SpELUtils`
-- 提供了基于Redis的基本工具类`DefaultRedisOperations`，规范接口，可以自定义扩展的实现
-- 提供了`RedisCacheable`注解，注解参考SpringCacheable实现了功能，轻量。提供了查询key为null之后的处理策略
-- 提供了`RedisCacheEvict注解`,注解可以延时时长，极大程度提高了原有延时双删的使用
-- 提供了工具类的统一异常类，`AbstractRedisToolsException`，抛出组件异常的时候可以使用具体的组件子类
+- Redis的基本操作类，工具类，这个都比较常见 `DefaultRedisOperations`,`RedisKeyUtils`[使用文档](./src/main/java/io/github/alfonsokevin/core/base/docs/base.md)
+- 提供了SpringEL表达式的工具类 `SpELUtils`[使用文档](./src/main/java/io/github/alfonsokevin/core/base/docs/base.md)
+- 提供了基于Redis的基本工具类`DefaultRedisOperations`，规范接口，可以自定义扩展的实现[使用文档](./src/main/java/io/github/alfonsokevin/core/base/docs/base.md)
+- 提供了`RedisCacheable`注解，注解参考SpringCacheable实现了功能，轻量。提供了查询key为null之后的处理策略[使用文档](./src/main/java/io/github/alfonsokevin/core/cache/docs/cache.md)
+- 提供了`RedisCacheEvict注解`,注解可以延时时长，极大程度提高了原有延时双删的使用[使用文档](./src/main/java/io/github/alfonsokevin/core/cache/docs/cache.md)
+- 提供了工具类的统一异常类，`AbstractRedisToolsException`，抛出组件异常的时候可以使用具体的组件子类[使用文档](./src/main/java/io/github/alfonsokevin/core/base/docs/base.md)
 
 ### 🚀快速开始
 
