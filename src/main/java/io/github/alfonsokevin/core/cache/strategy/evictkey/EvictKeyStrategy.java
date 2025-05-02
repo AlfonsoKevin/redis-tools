@@ -15,12 +15,15 @@ public interface EvictKeyStrategy {
 
     /**
      * 获取要删除的key
+     *
      * @param redisCacheEvict
      * @return target key
      */
-    String getEvictKey(RedisCacheEvict redisCacheEvict, Method method, Object[] args);
+    String getEvictKey(RedisCacheEvict redisCacheEvict, Method method, Object[] args, Object result);
+
     /**
      * key的策略
+     *
      * @return
      */
     EvictKeyType getKeyType();

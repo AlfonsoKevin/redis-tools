@@ -1,7 +1,8 @@
 package io.github.alfonsokevin.core.cache.aspect;
 
-import com.alibaba.fastjson.JSON;
 
+
+import com.alibaba.fastjson2.JSON;
 import io.github.alfonsokevin.core.cache.annotation.RedisCacheable;
 import io.github.alfonsokevin.core.cache.model.enums.KeyType;
 import io.github.alfonsokevin.core.cache.model.enums.NullType;

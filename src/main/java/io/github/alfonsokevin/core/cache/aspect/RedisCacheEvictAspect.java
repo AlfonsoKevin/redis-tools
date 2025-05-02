@@ -61,7 +61,7 @@ public class RedisCacheEvictAspect {
             throw new IllegalArgumentException("[{RedisCacheEvict}]: >> redisCacheEvict is null ~~");
         }
         io.github.alfonsokevin.core.cache.model.RedisCacheEvict cacheEvict =
-                new io.github.alfonsokevin.core.cache.model.RedisCacheEvict();
+                io.github.alfonsokevin.core.cache.model.RedisCacheEvict.of(redisCacheEvict);
         // TODO 是否需要使用事务，用来保证方法执行结束后操作的原子性
         // 1.执行方法
         Object result = joinPoint.proceed();
@@ -69,7 +69,7 @@ public class RedisCacheEvictAspect {
         Object[] args = joinPoint.getArgs();
         // 2.策略解析key
         EvictKeyStrategy keyStrategy = factory.getEvictKeyStrategy(cacheEvict.getType());
-        String currentKey = keyStrategy.getEvictKey(cacheEvict, method, args);
+        String currentKey = keyStrategy.getEvictKey(cacheEvict, method, args, result);
         // 3.删除key
         RKeys keys = redissonClient.getKeys();
         if (Objects.isNull(cacheEvict.getKey())) {
