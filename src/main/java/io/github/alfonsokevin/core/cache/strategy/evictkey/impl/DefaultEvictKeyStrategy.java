@@ -26,7 +26,7 @@ public class DefaultEvictKeyStrategy implements EvictKeyStrategy {
      */
     @Override
     public String getEvictKey(RedisCacheEvict redisCacheEvict,
-                              Method method, Object[] args) {
+                              Method method, Object[] args,Object result) {
         log.info("[{RedisCacheEvict}]: >> Key strategy: {}", this.getKeyType());
         return redisCacheEvict.getKey();
     }

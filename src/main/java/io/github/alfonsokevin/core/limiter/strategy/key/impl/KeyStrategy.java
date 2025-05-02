@@ -1,6 +1,6 @@
 package io.github.alfonsokevin.core.limiter.strategy.key.impl;
 
-import com.alibaba.fastjson.JSON;
+
 import io.github.alfonsokevin.core.limiter.enums.KeyType;
 import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import io.github.alfonsokevin.core.limiter.strategy.key.GeneratorKeyStrategy;
