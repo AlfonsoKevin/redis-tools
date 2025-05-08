@@ -1,5 +1,6 @@
 package io.github.alfonsokevin.core.base.opt;
 
+
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import org.springframework.data.redis.core.*;
@@ -31,7 +32,7 @@ public class DefaultRedisOperations implements RedisOperations {
      * @return 操作类
      */
     @Override
-    public StringRedisTemplate template() {
+    public StringRedisTemplate getTemplate() {
         return this.TEMPLATE;
     }
 
@@ -234,6 +235,27 @@ public class DefaultRedisOperations implements RedisOperations {
     }
 
     /**
+     * 批量设置
+     *
+     * @param map
+     */
+    @Override
+    public void multiSet(Map<? extends String, ? extends String> map) {
+        getTemplate().opsForValue().multiSet(map);
+    }
+
+    /**
+     * 批量设置不存在的部分
+     *
+     * @param map
+     * @return
+     */
+    @Override
+    public Boolean multiSetIfAbsent(Map<? extends String, ? extends String> map) {
+        return string().multiSetIfAbsent(map);
+    }
+
+    /**
      * get 方法
      *
      * @param key 字符串
@@ -271,6 +293,7 @@ public class DefaultRedisOperations implements RedisOperations {
         return string().getAndSet(key, value);
     }
 
+
     /**
      * 如果获取不到值就设置，最后返回
      *
@@ -286,10 +309,66 @@ public class DefaultRedisOperations implements RedisOperations {
     }
 
     /**
+     * 获取值，并删除整个键值对
+     *
+     * @param key key
+     * @return key存在，返回值，删除键值对；如果key不存在，不做任何操作，返回null
+     */
+    @Override
+    @Deprecated
+    public Object getAndDelete(String key) {
+        // return string().getAndDelete(key);
+        return "";
+    }
+
+
+    /**
+     * 为存在的键值对增加超时时间
+     *
+     * @param key     key
+     * @param timeout timeout
+     * @param unit    unit
+     * @return 如果key不存在，不做任何操作，返回null；否则返回值，为key设置超时时间
+     */
+    @Override
+    @Deprecated
+    public Object getAndExpire(String key, long timeout, TimeUnit unit) {
+        // return string().getAndExpire(key, timeout, unit);
+        return "";
+    }
+
+    /**
+     * 为存在的键值对增加超时时间
+     *
+     * @param key      key
+     * @param duration duration
+     * @return 如果key不存在，不做任何操作，返回null；否则返回值，为key设置超时时间
+     */
+    @Override
+    @Deprecated
+    public Object getAndExpire(String key, Duration duration) {
+        // return string().getAndExpire(key, duration);
+        return "";
+    }
+
+    /**
+     * 为存在的key移除超时时间
+     * @param key key
+     * @return key存在，移除超时时间，返回值;不存在返回null
+     */
+    @Override
+    @Deprecated
+    public Object getAndPersist(String key) {
+        // return string().getAndPersist(key);
+        return "";
+    }
+
+    /**
      * 获取指定key对应value再offset偏移量上的bit(位)
      * # 对不存在的 key 或者不存在的 offset 进行 getBit， 返回 0
      * # 对已存在的 offset 进行 getBit
-     * @param key key
+     *
+     * @param key    key
      * @param offset 偏移量
      * @return 如果value的offset偏移量上存在返回true，否则返回false
      */
@@ -306,7 +385,7 @@ public class DefaultRedisOperations implements RedisOperations {
      */
     @Override
     public Boolean del(String key) {
-        return this.template().delete(key);
+        return this.getTemplate().delete(key);
     }
 
 

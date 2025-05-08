@@ -18,7 +18,7 @@ public interface RedisOperations {
     /**
      * @see DefaultRedisOperations
      */
-    StringRedisTemplate template();
+    StringRedisTemplate getTemplate();
 
     /**
      * @see DefaultRedisOperations
@@ -108,6 +108,16 @@ public interface RedisOperations {
     /**
      * @see DefaultRedisOperations
      */
+    void multiSet(Map<? extends String, ? extends String> map);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Boolean multiSetIfAbsent(Map<? extends String, ? extends String> map);
+
+    /**
+     * @see DefaultRedisOperations
+     */
     String get(String key);
 
     /**
@@ -124,6 +134,26 @@ public interface RedisOperations {
      * @see DefaultRedisOperations
      */
     <T> T getSet(String key, T value, Class<T> clazz);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Object getAndDelete(String key);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Object getAndExpire(String key, long timeout, TimeUnit unit);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Object getAndExpire(String key, Duration duration);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Object getAndPersist(String key);
 
     /**
      * @see DefaultRedisOperations
