@@ -7,6 +7,7 @@
 ### DefaultRedisOperations
 我实现的工具类，默认实现，如果你更好的思路，那么就可以使用实现接口的方式，重新实现
 
+具体的工具类都是平时开发中最常使用的Redis命令，可以通过查阅资料来进行使用。
 ## AbstractRedisToolsException
 异常的规范，顶层父类。要求是所有的组件异常都必须继承自该父类
 ### CacheException
