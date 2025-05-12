@@ -60,8 +60,9 @@
 - 提供了SpringEL表达式的工具类 `SpELUtils`[使用文档](./src/main/java/io/github/alfonsokevin/core/base/docs/base.md)
 - 提供了基于Redis的基本工具类`DefaultRedisOperations`，规范接口，可以自定义扩展的实现[使用文档](./src/main/java/io/github/alfonsokevin/core/base/docs/base.md)
 - 提供了`RedisCacheable`注解，注解参考SpringCacheable实现了功能，轻量。提供了查询key为null之后的处理策略[使用文档](./src/main/java/io/github/alfonsokevin/core/cache/docs/cache.md)
-- 提供了`RedisCacheEvict注解`,注解可以设置延时时长，极大程度提高了原有延时双删的使用[使用文档](./src/main/java/io/github/alfonsokevin/core/cache/docs/cache.md)
+- 提供了`RedisCacheEvict`注解,注解可以设置延时时长，极大程度提高了原有延时双删的使用[使用文档](./src/main/java/io/github/alfonsokevin/core/cache/docs/cache.md)
 - 提供了工具类的统一异常类，`AbstractRedisToolsException`，抛出组件异常的时候可以使用具体的组件子类[使用文档](./src/main/java/io/github/alfonsokevin/core/base/docs/base.md)
+- 提供了`RedisPublisher`注解，注解可以在执行完方法之后，自定义消息将会发送到topic中[使用文档](./src/main/java/io/github/alfonsokevin/core/publisher/docs/publisher.md)
 
 ### 🚀快速开始
 
@@ -95,6 +96,7 @@ redis:
 ```
 
 ### 🤖最近更新
+- 2025/5/12 引入RedisPublisher发布订阅器组件，修改文档，补充异常和补充异常码
 - 2025/5/12 完善OPT基本工具，补充其他基本类型，将会在下一个小版本上线
 - 2025/5/03 对OPT基本工具类进行补充，主要包含有HASH类型和ZSET类型
 - 2025/5/02 对evict组件新增对方法的结果删除的策略，修复该组件的bug，将原有fastjson替换为fastjson2，版本是1.3.1-RELEASE
