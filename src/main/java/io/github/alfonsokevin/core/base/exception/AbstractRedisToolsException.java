@@ -5,9 +5,9 @@ import io.github.alfonsokevin.core.base.exception.code.ResultCode;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @description: 父类
- * @create: 2025-04-28 11:50
- * @author: TangZhiKai
+ * @description 父类
+ * @since 2025-04-28 11:50
+ * @author TangZhiKai
  **/
 public abstract class AbstractRedisToolsException extends RuntimeException
         implements RedisToolsException {

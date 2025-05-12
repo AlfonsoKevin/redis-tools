@@ -4,9 +4,9 @@ import io.github.alfonsokevin.core.cache.model.RedisCacheable;
 import io.github.alfonsokevin.core.cache.model.enums.NullType;
 
 /**
- * @description: 空值处理类
- * @create: 2025-04-23 19:21
- * @author: TangZhiKai
+ * @description 空值处理类
+ * @since 2025-04-23 19:21
+ * @author TangZhiKai
  **/
 public interface NullValueHandler {
 

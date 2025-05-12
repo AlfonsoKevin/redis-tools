@@ -1,9 +1,9 @@
 package io.github.alfonsokevin.core.cache.model.enums;
 
 /**
- * @description: CacheEvict生成key的类型
- * @create: 2025-04-27 14:59
- * @author: TangZhiKai
+ * @description CacheEvict生成key的类型
+ * @since 2025-04-27 14:59
+ * @author TangZhiKai
  **/
 public enum EvictKeyType {
     /**

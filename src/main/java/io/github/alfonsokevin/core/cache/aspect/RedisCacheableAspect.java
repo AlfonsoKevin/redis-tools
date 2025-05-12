@@ -3,6 +3,8 @@ package io.github.alfonsokevin.core.cache.aspect;
 
 
 import com.alibaba.fastjson2.JSON;
+import io.github.alfonsokevin.core.base.exception.code.StandardResultCode;
+import io.github.alfonsokevin.core.base.exception.impl.CacheException;
 import io.github.alfonsokevin.core.cache.annotation.RedisCacheable;
 import io.github.alfonsokevin.core.cache.model.enums.KeyType;
 import io.github.alfonsokevin.core.cache.model.enums.NullType;
@@ -30,9 +32,9 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description: 增强
- * @create: 2025-04-23 17:23
- * @author: TangZhiKai
+ * @description 增强
+ * @since 2025-04-23 17:23
+ * @author TangZhiKai
  **/
 @Order(2)
 @Aspect
@@ -60,7 +62,7 @@ public class RedisCacheableAspect {
     @PostConstruct
     public void init() {
         if (Objects.isNull(template)) {
-            logger.error("[{RedisCacheable}]: >> redissonClient is error ~~~");
+            logger.warn("[{RedisCacheable}]: >> redissonClient is error ~~~");
         }
         logger.info("[{RedisCacheable}]: >> redissonClient is finishing ~~~~");
     }
@@ -82,13 +84,15 @@ public class RedisCacheableAspect {
     public Object around(ProceedingJoinPoint joinPoint, RedisCacheable redisCacheable) throws Throwable {
         // 1.判断注解如果没有添加，抛出异常
         if (Objects.isNull(redisCacheable)) {
-            throw new IllegalArgumentException("[{RedisCacheable}]: >> redisCacheable is null on method!");
+            throw new CacheException("[{RedisCacheable}]: >> redisCacheable is null on method!",
+                    StandardResultCode.REQUEST_PARAMETER_IS_NULL.getCode());
         }
         // 2.转换为具体的实体，进行判断，获取redistemplate
         io.github.alfonsokevin.core.cache.model.RedisCacheable cacheable = io.github.alfonsokevin.core.cache.model.RedisCacheable.of(redisCacheable);
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
         if (Objects.isNull(method)) {
-            throw new IllegalArgumentException("[{RedisCacheable}]: >>  getMethod() is failed");
+            throw new CacheException("[{RedisCacheable}]: >>  getMethod() is failed",
+                    StandardResultCode.REQUEST_PARAMETER_IS_NULL.getCode());
         }
         // 3.获取具体的生成key策略
         String currentKey = getKeyStrategy(joinPoint, cacheable, method);

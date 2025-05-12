@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * @description: 缓存Key生成的策略
- * @create: 2025-04-24 16:19
- * @author: TangZhiKai
+ * @description 缓存Key生成的策略
+ * @since 2025-04-24 16:19
+ * @author TangZhiKai
  **/
 @AllArgsConstructor
 @Getter

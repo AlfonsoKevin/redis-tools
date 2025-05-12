@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @description: 缓存为空的时候的对应策略
- * @create: 2025-04-24 16:20
- * @author: TangZhiKai
+ * @description 缓存为空的时候的对应策略
+ * @since 2025-04-24 16:20
+ * @author TangZhiKai
  **/
 @AllArgsConstructor
 @Getter

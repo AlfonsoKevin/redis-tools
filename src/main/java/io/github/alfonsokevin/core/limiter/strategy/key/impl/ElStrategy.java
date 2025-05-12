@@ -1,6 +1,8 @@
 package io.github.alfonsokevin.core.limiter.strategy.key.impl;
 
 
+import io.github.alfonsokevin.core.base.exception.impl.FrequencyControlBuilder;
+import io.github.alfonsokevin.core.base.exception.impl.FrequencyControlException;
 import io.github.alfonsokevin.core.limiter.enums.KeyType;
 import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 import org.slf4j.Logger;
@@ -14,9 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**
- * @description: SpringEl表达式Key的生成策略
- * @create: 2025-04-22 14:55
- * @author: TangZhiKai
+ * @description SpringEl表达式Key的生成策略
+ * @since 2025-04-22 14:55
+ * @author TangZhiKai
  **/
 @Component
 public class ElStrategy implements GeneratorKeyStrategy {
@@ -29,7 +31,7 @@ public class ElStrategy implements GeneratorKeyStrategy {
         String originalKey = frequencyControl.getKey();
         if (originalKey == null || originalKey.length() == 0) {
             log.debug("[{FrequencyControl}]: >> params error");
-            throw new IllegalArgumentException("参数异常");
+            throw FrequencyControlBuilder.build(frequencyControl.getExceptionClass(), "参数异常");
         }
         String parseKey = SpElUtils.parseEl(method, joinPoint.getArgs(), originalKey);
         String methodPrefix = SpElUtils.getMethodPrefix(method);

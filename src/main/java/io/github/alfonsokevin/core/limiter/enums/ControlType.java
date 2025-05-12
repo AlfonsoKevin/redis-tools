@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @description: 策略限流枚举
- * @create: 2025-04-24 23:38
- * @author: TangZhiKai
+ * @description 策略限流枚举
+ * @since 2025-04-24 23:38
+ * @author TangZhiKai
  **/
 @AllArgsConstructor
 @Getter

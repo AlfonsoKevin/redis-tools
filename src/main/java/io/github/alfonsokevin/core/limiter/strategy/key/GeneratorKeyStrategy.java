@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**
- * @description: 生成RedisKey的策略
- * @create: 2025-04-22 14:43
- * @author: TangZhiKai
+ * @description 生成RedisKey的策略
+ * @since 2025-04-22 14:43
+ * @author TangZhiKai
  **/
 public interface GeneratorKeyStrategy {
 

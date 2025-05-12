@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * @description: 策略工厂
- * @author: TangZhiKai
+ * @description 策略工厂
+ * @author TangZhiKai
  **/
 @Component
 public class FrequencyControlStrategyFactory {

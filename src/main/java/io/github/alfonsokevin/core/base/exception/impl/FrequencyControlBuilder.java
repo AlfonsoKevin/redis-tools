@@ -1,6 +1,7 @@
 package io.github.alfonsokevin.core.base.exception.impl;
 
 import io.github.alfonsokevin.core.base.exception.AbstractRedisToolsException;
+import io.github.alfonsokevin.core.base.exception.code.StandardResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,8 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 ;
 
 /**
- * @description: 速率限流器的构造器，寻找异常只反射一次，后续调用即可
- * @author: TangZhiKai
+ * @description 速率限流器的构造器，寻找异常只反射一次，后续调用即可
+ * @author TangZhiKai
  **/
 public class FrequencyControlBuilder {
 
@@ -42,13 +43,15 @@ public class FrequencyControlBuilder {
                             return c.getConstructor(String.class);
                         } catch (NoSuchMethodException e) {
                             log.error("[{FrequencyControl}]: >> Abnormal initialization error of FrequencyControl", e);
-                            throw new IllegalStateException("速率限流器异常初始化错误 ~~", e);
+                            throw new FrequencyControlException("速率限流器异常初始化错误 ~~",
+                                    StandardResultCode.INITIALIZATION_ERROR.getCode());
                         }
                     });
             return constructor.newInstance(message);
         } catch (Exception e) {
             log.error("[{FrequencyControl}]: >> Abnormal initialization error of FrequencyControl", e);
-            throw new IllegalStateException("速率限流器异常初始化错误 ~~", e);
+            throw new FrequencyControlException("速率限流器异常初始化错误 ~~",
+                    StandardResultCode.INITIALIZATION_ERROR.getCode());
         }
     }
 

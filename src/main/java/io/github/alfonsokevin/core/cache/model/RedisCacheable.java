@@ -9,9 +9,9 @@ import lombok.Setter;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description: Cacheable注解信息实体类
- * @create: 2025-04-23 17:26
- * @author: TangZhiKai
+ * @description Cacheable注解信息实体类
+ * @since 2025-04-23 17:26
+ * @author TangZhiKai
  **/
 @Data
 @Getter

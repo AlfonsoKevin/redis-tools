@@ -1,9 +1,9 @@
 package io.github.alfonsokevin.core.base.exception.code;
 
 /**
- * @description: redistools 异常错误码
- * @create: 2025-04-28 11:54
- * @author: TangZhiKai
+ * @description redistools 异常错误码
+ * @since 2025-04-28 11:54
+ * @author TangZhiKai
  **/
 public interface ResultCode {
     /**

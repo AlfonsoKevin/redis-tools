@@ -10,9 +10,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * @description: key生成工厂
- * @create: 2025-04-23 19:16
- * @author: TangZhiKai
+ * @description key生成工厂
+ * @since 2025-04-23 19:16
+ * @author TangZhiKai
  **/
 @Component
 public class CacheableKeyFactory {

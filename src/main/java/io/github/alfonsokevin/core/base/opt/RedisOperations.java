@@ -9,9 +9,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 /**
- * @description: Redis工具类规范
- * @create: 2025-04-23 10:01
- * @author: TangZhiKai
+ * @description Redis工具类规范
+ * @since 2025-04-23 10:01
+ * @author TangZhiKai
  **/
 public interface RedisOperations {
 

@@ -18,9 +18,9 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description: 定时任务删除队列中的Key
- * @create: 2025-04-27 17:58
- * @author: TangZhiKai
+ * @description 定时任务删除队列中的Key
+ * @since 2025-04-27 17:58
+ * @author TangZhiKai
  **/
 @Component
 @RequiredArgsConstructor

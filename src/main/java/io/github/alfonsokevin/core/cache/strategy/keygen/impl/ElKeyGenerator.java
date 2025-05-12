@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * @description: 使用SpringEL表达式解析
- * @create: 2025-04-23 18:02
- * @author: TangZhiKai
+ * @description 使用SpringEL表达式解析
+ * @since 2025-04-23 18:02
+ * @author TangZhiKai
  **/
 
 @Component

@@ -1,6 +1,8 @@
 package io.github.alfonsokevin.core.cache.aspect;
 
 import io.github.alfonsokevin.core.base.constants.RTConstants;
+import io.github.alfonsokevin.core.base.exception.code.StandardResultCode;
+import io.github.alfonsokevin.core.base.exception.impl.CacheException;
 import io.github.alfonsokevin.core.cache.annotation.RedisCacheEvict;
 import io.github.alfonsokevin.core.cache.strategy.evictkey.CacheEvictKeyFactory;
 import io.github.alfonsokevin.core.cache.strategy.evictkey.EvictKeyStrategy;
@@ -27,9 +29,9 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
- * @description: 延迟双删-切入点方法
- * @create: 2025-04-27 14:41
- * @author: TangZhiKai
+ * @description 延迟双删-切入点方法
+ * @since 2025-04-27 14:41
+ * @author TangZhiKai
  **/
 @Order(3)
 @Aspect
@@ -58,7 +60,8 @@ public class RedisCacheEvictAspect {
     @Around("pointEvict(redisCacheEvict)")
     public Object around(ProceedingJoinPoint joinPoint, RedisCacheEvict redisCacheEvict) throws Throwable {
         if (Objects.isNull(redisCacheEvict)) {
-            throw new IllegalArgumentException("[{RedisCacheEvict}]: >> redisCacheEvict is null ~~");
+            throw new CacheException("[{RedisCacheEvict}]: >> redisCacheEvict is null ~~",
+                    StandardResultCode.REQUEST_PARAMETER_IS_NULL.getCode());
         }
         io.github.alfonsokevin.core.cache.model.RedisCacheEvict cacheEvict =
                 io.github.alfonsokevin.core.cache.model.RedisCacheEvict.of(redisCacheEvict);
@@ -74,7 +77,8 @@ public class RedisCacheEvictAspect {
         RKeys keys = redissonClient.getKeys();
         if (Objects.isNull(cacheEvict.getKey())) {
             log.warn("[{RedisCacheEvict}]: >> CacheEvict key is null.");
-            throw new IllegalArgumentException("CacheEvict key is null.");
+            throw new CacheException("[{RedisCacheEvict}]: >> CacheEvict key is null.",
+                    StandardResultCode.REQUEST_PARAMETER_IS_NULL.getCode());
         }
         // 0表示不存在，1表示删除成功
         long isDelete = keys.delete(currentKey);

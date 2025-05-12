@@ -2,6 +2,10 @@ package io.github.alfonsokevin.core.base.opt;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import io.github.alfonsokevin.core.base.exception.code.RedisOperationsResultCode;
+import io.github.alfonsokevin.core.base.exception.code.StandardResultCode;
+import io.github.alfonsokevin.core.base.exception.impl.FrequencyControlException;
+import io.github.alfonsokevin.core.base.exception.impl.RedisOperationsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.RedisZSetCommands;
@@ -17,9 +21,9 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
- * @description: Redis默认的工具类实现
- * @create: 2025-04-23 10:02
- * @author: TangZhiKai
+ * @description Redis默认的工具类实现
+ * @since 2025-04-23 10:02
+ * @author TangZhiKai
  **/
 @Component
 public class DefaultRedisOperations implements RedisOperations {
@@ -442,7 +446,7 @@ public class DefaultRedisOperations implements RedisOperations {
             } catch (Exception e) {
                 log.error("[{Redis STRING}]: >> {} ", e.getMessage(), e);
                 //
-                throw new RuntimeException(e);
+                throw new RedisOperationsException(RedisOperationsResultCode.SCAN_EXCEPTION);
             }
 
             return null;
@@ -782,7 +786,8 @@ public class DefaultRedisOperations implements RedisOperations {
     @Override
     public Long lPush(String key, Object... values) {
         if (Objects.isNull(values)) {
-            throw new IllegalArgumentException("lpush error");
+            throw new RedisOperationsException("[{RedisOperations}]: >> lpush error",
+                    StandardResultCode.REQUEST_PARAMETER_IS_NULL.getCode());
         }
         return lPush(key, Arrays.asList(values));
     }
@@ -888,7 +893,8 @@ public class DefaultRedisOperations implements RedisOperations {
     @Override
     public Long rPush(String key, Object... values) {
         if (Objects.isNull(values)) {
-            throw new IllegalArgumentException("rpush error");
+            throw new RedisOperationsException("[{RedisOperations}]: >> rpush error",
+                    StandardResultCode.REQUEST_PARAMETER_IS_NULL.getCode());
         }
         return rPush(key, Arrays.asList(values));
     }
@@ -1095,7 +1101,8 @@ public class DefaultRedisOperations implements RedisOperations {
     @Override
     public Long sAdd(String key, Object... values) {
         if (Objects.isNull(values)) {
-            throw new IllegalArgumentException("sadd error");
+            throw new RedisOperationsException("[{RedisOperations}]: >> sadd error",
+                    StandardResultCode.REQUEST_PARAMETER_IS_NULL.getCode());
         }
         int length = values.length;
         String[] valueArr = new String[length];
@@ -1116,7 +1123,8 @@ public class DefaultRedisOperations implements RedisOperations {
     @Override
     public Long sRem(String key, Object... values) {
         if (Objects.isNull(values)) {
-            throw new IllegalArgumentException("srem error");
+            throw new RedisOperationsException("[{RedisOperations}]: >> srem error",
+                    StandardResultCode.REQUEST_PARAMETER_IS_NULL.getCode());
         }
         return set().remove(key, values);
     }
@@ -1558,7 +1566,7 @@ public class DefaultRedisOperations implements RedisOperations {
                 consumer.accept(cursor.next());
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RedisOperationsException(RedisOperationsResultCode.SCAN_EXCEPTION);
         }
     }
 
@@ -1581,7 +1589,7 @@ public class DefaultRedisOperations implements RedisOperations {
                 consumer.accept(parseToObject(cursor.next(), clazz));
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RedisOperationsException(RedisOperationsResultCode.SCAN_EXCEPTION);
         }
     }
 
@@ -2080,7 +2088,7 @@ public class DefaultRedisOperations implements RedisOperations {
                 consumer.accept(zScan.next());
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RedisOperationsException(RedisOperationsResultCode.SCAN_EXCEPTION);
         }
     }
 

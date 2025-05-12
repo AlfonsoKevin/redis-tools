@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**
- * @description: 自定义Key的生成策略
- * @create: 2025-04-22 14:54
- * @author: TangZhiKai
+ * @description 自定义Key的生成策略
+ * @since 2025-04-22 14:54
+ * @author TangZhiKai
  **/
 @Component
 public class KeyStrategy implements GeneratorKeyStrategy {

@@ -7,9 +7,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import java.lang.reflect.Method;
 
 /**
- * @description: 生成key的策略
- * @create: 2025-04-23 18:01
- * @author: TangZhiKai
+ * @description 生成key的策略
+ * @since 2025-04-23 18:01
+ * @author TangZhiKai
  **/
 public interface CacheableKeyGenerator {
 

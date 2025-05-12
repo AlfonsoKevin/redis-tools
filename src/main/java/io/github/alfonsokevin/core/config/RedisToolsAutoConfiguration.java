@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @description: 自动配置类
- * @author: TangZhiKai
+ * @description 自动配置类
+ * @author TangZhiKai
  **/
 @Configuration
 @ConditionalOnMissingBean(RedissonClient.class)

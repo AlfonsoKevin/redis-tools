@@ -4,9 +4,9 @@ import io.github.alfonsokevin.core.base.exception.AbstractRedisToolsException;
 import io.github.alfonsokevin.core.base.exception.code.ResultCode;
 
 /**
- * @description: 默认的异常类型
- * @create: 2025-04-22 01:35
- * @author: TangZhiKai
+ * @description 默认的异常类型
+ * @since 2025-04-22 01:35
+ * @author TangZhiKai
  **/
 public class FrequencyControlException extends AbstractRedisToolsException {
 
@@ -33,7 +33,6 @@ public class FrequencyControlException extends AbstractRedisToolsException {
     public FrequencyControlException(ResultCode resultCode) {
         super(resultCode);
     }
-
     public FrequencyControlException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, int code) {
         super(message, cause, enableSuppression, writableStackTrace, code);
     }

@@ -10,13 +10,15 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import java.lang.reflect.Method;
 
 /**
- * @description: SpringEl表达式工具类
- * @create: 2025-04-22 15:01
- * @author: TangZhiKai
+ * @description SpringEl表达式工具类
+ * @since 2025-04-22 15:01
+ * @author TangZhiKai
  **/
-public class SpElUtils {
+public final class SpElUtils {
 
-    private static final DefaultParameterNameDiscoverer NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
+    private SpElUtils(){}
+
+    public static final DefaultParameterNameDiscoverer NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
     /**
      * 创建解析器
      */

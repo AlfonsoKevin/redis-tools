@@ -4,9 +4,9 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @description: 自定义的配置
- * @create: 2025-04-22 23:28
- * @author: TangZhiKai
+ * @description 自定义的配置
+ * @since 2025-04-22 23:28
+ * @author TangZhiKai
  **/
 @ConfigurationProperties(prefix = "redis.tools.config",ignoreInvalidFields = true)
 @Data

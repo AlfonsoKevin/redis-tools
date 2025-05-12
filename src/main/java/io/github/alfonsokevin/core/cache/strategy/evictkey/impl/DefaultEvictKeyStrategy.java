@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * @description: 默认删除key的策略
- * @create: 2025-04-27 17:18
- * @author: TangZhiKai
+ * @description 默认删除key的策略
+ * @since 2025-04-27 17:18
+ * @author TangZhiKai
  **/
 @Component
 public class DefaultEvictKeyStrategy implements EvictKeyStrategy {

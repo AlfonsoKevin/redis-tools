@@ -4,9 +4,9 @@ import io.github.alfonsokevin.core.base.exception.impl.FrequencyControlException
 import io.github.alfonsokevin.core.limiter.model.FrequencyControl;
 
 /**
- * @description: 限流策略
- * @create: 2025-04-22 01:13
- * @author: TangZhiKai
+ * @description 限流策略
+ * @since 2025-04-22 01:13
+ * @author TangZhiKai
  **/
 public interface FrequencyControlStrategy {
     /**

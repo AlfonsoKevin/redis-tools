@@ -9,9 +9,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * @description: 工厂，获取具体策略，生成key
- * @create: 2025-04-27 17:24
- * @author: TangZhiKai
+ * @description 工厂，获取具体策略，生成key
+ * @since 2025-04-27 17:24
+ * @author TangZhiKai
  **/
 @Component
 public class CacheEvictKeyFactory {

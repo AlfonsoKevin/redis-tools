@@ -13,9 +13,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * @description: Key的策略工厂
- * @create: 2025-04-22 15:19
- * @author: TangZhiKai
+ * @description Key的策略工厂
+ * @since 2025-04-22 15:19
+ * @author TangZhiKai
  **/
 @Component
 public class KeyStrategyFactory {

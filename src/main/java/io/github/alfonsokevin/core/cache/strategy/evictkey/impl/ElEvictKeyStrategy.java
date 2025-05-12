@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * @description: EL表达式解析Key
- * @create: 2025-04-27 17:21
- * @author: TangZhiKai
+ * @description EL表达式解析Key
+ * @since 2025-04-27 17:21
+ * @author TangZhiKai
  **/
 @Component
 public class ElEvictKeyStrategy implements EvictKeyStrategy {

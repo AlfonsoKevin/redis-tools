@@ -7,9 +7,9 @@ import lombok.Data;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description: 注解对应实体类
- * @create: 2025-04-27 14:57
- * @author: TangZhiKai
+ * @description 注解对应实体类
+ * @since 2025-04-27 14:57
+ * @author TangZhiKai
  **/
 @Data
 public class RedisCacheEvict {

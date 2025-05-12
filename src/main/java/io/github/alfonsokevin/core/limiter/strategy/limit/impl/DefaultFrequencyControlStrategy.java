@@ -12,9 +12,9 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description: 默认的限流策略
- * @create: 2025-04-22 01:20
- * @author: TangZhiKai
+ * @description 默认的限流策略
+ * @since 2025-04-22 01:20
+ * @author TangZhiKai
  **/
 @Component(value = "REDIS_FREQ_DEFAULT")
 @RequiredArgsConstructor

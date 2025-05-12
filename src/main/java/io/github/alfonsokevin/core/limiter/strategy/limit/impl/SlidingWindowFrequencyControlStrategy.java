@@ -18,9 +18,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 /**
- * @description: 滑动窗口策略限流
- * @create: 2025-04-22 01:21
- * @author: TangZhiKai
+ * @description 滑动窗口策略限流
+ * @since 2025-04-22 01:21
+ * @author TangZhiKai
  **/
 @Component(value = "REDIS_FREQ_SLIDING_WINDOW")
 @RequiredArgsConstructor // 将所有final字段构造函数中初始化

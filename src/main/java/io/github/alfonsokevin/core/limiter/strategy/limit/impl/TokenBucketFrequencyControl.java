@@ -10,9 +10,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- * @description: 令牌桶限流策略
- * @create: 2025-04-22 01:13
- * @author: TangZhiKai
+ * @description 令牌桶限流策略
+ * @since 2025-04-22 01:13
+ * @author TangZhiKai
  **/
 @Component("REDIS_FREQ_TOKEN_BUCKET")
 @RequiredArgsConstructor

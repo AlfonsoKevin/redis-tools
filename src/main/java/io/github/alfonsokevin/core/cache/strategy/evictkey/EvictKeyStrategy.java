@@ -6,9 +6,9 @@ import io.github.alfonsokevin.core.cache.model.enums.EvictKeyType;
 import java.lang.reflect.Method;
 
 /**
- * @description: 删除key的策略
- * @create: 2025-04-27 17:18
- * @author: TangZhiKai
+ * @description 删除key的策略
+ * @since 2025-04-27 17:18
+ * @author TangZhiKai
  **/
 public interface EvictKeyStrategy {
 

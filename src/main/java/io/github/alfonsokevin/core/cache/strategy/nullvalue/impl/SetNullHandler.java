@@ -16,9 +16,9 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description: 设置空值的策略类
- * @create: 2025-04-23 19:24
- * @author: TangZhiKai
+ * @description 设置空值的策略类
+ * @since 2025-04-23 19:24
+ * @author TangZhiKai
  **/
 @Component
 public class SetNullHandler implements NullValueHandler {

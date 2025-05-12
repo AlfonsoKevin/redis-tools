@@ -8,9 +8,9 @@ import lombok.Data;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description: 频率控制信息类
- * @create: 2025-04-24 23:34
- * @author: TangZhiKai
+ * @description 频率控制信息类
+ * @since 2025-04-24 23:34
+ * @author TangZhiKai
  **/
 @Data
 public class FrequencyControl {

@@ -9,9 +9,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- * @description: 布隆过滤器的处理类
- * @create: 2025-04-23 19:24
- * @author: TangZhiKai
+ * @description 布隆过滤器的处理类
+ * @since 2025-04-23 19:24
+ * @author TangZhiKai
  **/
 @Component
 public class BloomFilterHandler implements NullValueHandler {

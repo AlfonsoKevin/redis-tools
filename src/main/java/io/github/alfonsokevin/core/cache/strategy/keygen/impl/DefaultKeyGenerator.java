@@ -1,6 +1,8 @@
 package io.github.alfonsokevin.core.cache.strategy.keygen.impl;
 
 import com.alibaba.fastjson2.JSON;
+import io.github.alfonsokevin.core.base.exception.code.StandardResultCode;
+import io.github.alfonsokevin.core.base.exception.impl.CacheException;
 import io.github.alfonsokevin.core.cache.model.RedisCacheable;
 import io.github.alfonsokevin.core.cache.model.enums.KeyType;
 import io.github.alfonsokevin.core.cache.strategy.keygen.CacheableKeyGenerator;
@@ -12,9 +14,9 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * @description: 默认的生成策略，拼接key
- * @create: 2025-04-23 18:02
- * @author: TangZhiKai
+ * @description 默认的生成策略，拼接key
+ * @since 2025-04-23 18:02
+ * @author TangZhiKai
  **/
 @Component
 public class DefaultKeyGenerator implements CacheableKeyGenerator {
@@ -52,7 +54,8 @@ public class DefaultKeyGenerator implements CacheableKeyGenerator {
     private String getDefaultKey(Method method, Object[] args) {
         String[] params = NAME_DISCOVERER.getParameterNames(method);
         if (params == null || params.length == 0) {
-            throw new IllegalArgumentException("NAME_DISCOVER parse is failed ~~");
+            throw new CacheException("[{RedisCacheable}]: >> NAME_DISCOVER parse is failed ~~",
+                    StandardResultCode.NAME_DISCOVER_PARSE_FAILED.getCode());
         }
         // String#abc:Long#123
         StringBuffer stringBuffer = new StringBuffer();

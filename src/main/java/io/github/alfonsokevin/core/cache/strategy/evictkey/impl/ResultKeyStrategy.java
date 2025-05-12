@@ -9,9 +9,9 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 /**
- * @description: 对方法执行结果缓存的清空
- * @create: 2025-05-02 23:49
- * @author: TangZhiKai
+ * @description 对方法执行结果缓存的清空
+ * @since 2025-05-02 23:49
+ * @author TangZhiKai
  **/
 @Component
 public class ResultKeyStrategy implements EvictKeyStrategy {

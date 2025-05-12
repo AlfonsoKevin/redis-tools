@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @description: Redis构建key的工具类
- * @author: TangZhiKai
+ * @description Redis构建key的工具类
+ * @author TangZhiKai
  **/
 public class RedisKeyUtils {
     /**

@@ -2,6 +2,7 @@ package io.github.alfonsokevin.core.limiter.aspect;
 
 
 import io.github.alfonsokevin.core.base.exception.code.FreqResultCode;
+import io.github.alfonsokevin.core.base.exception.code.StandardResultCode;
 import io.github.alfonsokevin.core.base.exception.impl.FrequencyControlException;
 import io.github.alfonsokevin.core.config.RedisToolsAutoConfiguration;
 import io.github.alfonsokevin.core.limiter.annotation.FrequencyControl;
@@ -53,9 +54,9 @@ public class FrequencyControlAspect {
     @PostConstruct
     public void init() {
         if (Objects.isNull(redissonClient)) {
-            log.error("[{FrequencyControl}]: >> Startup failed, please check Redis configuration");
+            log.warn("[{FrequencyControl}]: >> Startup failed, please check Redis configuration");
         }
-        log.debug("[{FrequencyControl}]: >> The project has been successfully launched ~~ redissonClient:{}"
+        log.info("[{FrequencyControl}]: >> The project has been successfully launched ~~ redissonClient:{}"
                 , redissonClient.getConfig());
     }
 
@@ -72,7 +73,7 @@ public class FrequencyControlAspect {
             log.error("[{FrequencyControl}]: >> No annotations have been added to the method");
             throw new FrequencyControlException(
                     "[{FrequencyControl}]: >> The FrequencyControl will not be able to be used"
-                    , FreqResultCode.FREQ_INITIALIZATION_ERROR.getCode());
+                    , StandardResultCode.INITIALIZATION_ERROR.getCode());
         }
         // 获取具体的枚举实体对象，而不是使用注解
         io.github.alfonsokevin.core.limiter.model.FrequencyControl control =

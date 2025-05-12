@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @description: 注解key的类型
- * @create: 2025-04-24 23:37
- * @author: TangZhiKai
+ * @description 注解key的类型
+ * @since 2025-04-24 23:37
+ * @author TangZhiKai
  **/
 @AllArgsConstructor
 @Getter

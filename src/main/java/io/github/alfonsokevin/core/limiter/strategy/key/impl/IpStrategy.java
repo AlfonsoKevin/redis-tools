@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**
- * @description: 根据IP地址生成key
- * @create: 2025-04-25 02:32
- * @author: TangZhiKai
+ * @description 根据IP地址生成key
+ * @since 2025-04-25 02:32
+ * @author TangZhiKai
  **/
 @Component
 public class IpStrategy implements GeneratorKeyStrategy {
