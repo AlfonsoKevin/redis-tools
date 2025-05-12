@@ -136,8 +136,6 @@ public interface RedisOperations {
     <T> T getSet(String key, T value, Class<T> clazz);
 
 
-
-
     /**
      * @see DefaultRedisOperations
      */
@@ -329,6 +327,290 @@ public interface RedisOperations {
      * @see DefaultRedisOperations
      */
     Long lPush(String key, List<Object> values);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long lPushX(String key, String value);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long lInsert(String key, String pivot, String value);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long rPush(String key, String value);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long rPush(String key, Object value);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long rPush(String key, String... values);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long rPush(String key, Object... values);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long rPush(String key, List<Object> values);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long rPush(String key, Collection<String> values);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long lAppend(String key, String pivot, String value);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long rPushX(String key, String value);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    void lSet(String key, long index, String value);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long lRem(String key, long count, String value);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    String lIndex(String key, long index);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    String lPop(String key);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    String bLPop(String key, long timeout, TimeUnit unit);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    String bRpop(String key, long timeout, TimeUnit unit);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    String rPopLpush(String sourceKey, String destKey);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    String bRPopLpush(String sourceKey, String destKey, long timeout, TimeUnit unit);
+
+    //------------------------- set ------------------------
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long sAdd(String key, String... values);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long sAdd(String key, Object... values);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long sRem(String key, Object... values);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    String sPop(String key);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    <T> T sPop(String key, Class<T> clazz);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    List<String> sPop(String key, long count);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    <T> List<T> sPop(String key, long count, Class<T> clazz);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long sCard(String key);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Boolean sMove(String key, String value, String destKey);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Boolean sIsMember(String key, String value);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Set<String> sInter(String key, String otherKey);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Set<String> sInter(String key, Collection<String> otherKeys);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    // Set<String> sInter(Collection<String> otherKeys);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long sInterstore(String key, String other, String destKey);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long sInterstore(String key, Collection<String> otherKeys, String destKey);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    // Long sInterstore(Collection<String> keys, String destKey);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Set<String> sUnion(String key, String otherKey);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Set<String> sUnion(String key, Collection<String> otherKeys);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    // Set<String> sUnion(Collection<String> keys);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long sUnionStore(String key, String otherKey, String destKey);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long sUnionStore(String key, Collection<String> otherKeys, String destKey);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    // Long sUnionStore(Collection<String> keys, String destKey);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Set<String> sDiff(String key, String otherKey);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Set<String> sDiff(String key, Collection<String> otherKeys);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    // Set<String> sDiff(Collection<String> keys);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long sDiffStore(String key, String otherKey, String destKey);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Long sDiffStore(String key, Collection<String> otherKeys, String destKey);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    // Long sDiffStore(Collection<String> keys, String destKey);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Set<String> sMembers(String key);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    String sRandMember(String key);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Set<String> sDistinctRandomMembers(String key, long count);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    List<String> sRandMembers(String key, long count);
+
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    Cursor<String> sScan(String key, ScanOptions scanOptions);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    void sScan(String key, Consumer<String> consumer);
+
+    /**
+     * @see DefaultRedisOperations
+     */
+    <T> void sScan(String key, Class<T> clazz, Consumer<T> consumer);
+
 
     //------------------------- zset ------------------------
 

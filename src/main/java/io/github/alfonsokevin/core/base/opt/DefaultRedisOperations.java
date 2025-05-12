@@ -803,6 +803,789 @@ public class DefaultRedisOperations implements RedisOperations {
         return list().leftPushAll(key, elements);
     }
 
+    /**
+     * 当且仅当key存在并且是一个列表，才将值value插入到列表key的表头。
+     *
+     * @param key   key
+     * @param value value
+     * @return 返回列表的长度
+     */
+    @Override
+    public Long lPushX(String key, String value) {
+        return list().leftPushIfPresent(key, value);
+    }
+
+    /**
+     * Redis Linsert 命令用于在列表的元素前或者后插入元素。
+     * 当指定元素不存在于列表中时，不执行任何操作。
+     * 当列表不存在时，被视为空列表，不执行任何操作。
+     * 如果 key 不是列表类型，返回一个错误。
+     * <p>
+     * 将值 value 插入到列表 key 当中，位于值 pivot 之前或之后。
+     *
+     * @param key   key
+     * @param pivot pivot
+     * @param value value
+     * @return 如果命令执行成功，返回插入操作完成之后，列表的长度。
+     * 如果没有找到指定元素 ，返回 -1 。 如果 key 不存在或为空列表，返回 0
+     */
+    @Override
+    public Long lInsert(String key, String pivot, String value) {
+        return list().leftPush(key, pivot, value);
+    }
+
+    /**
+     * Redis Rpush 命令用于将一个或多个值插入到列表的尾部(最右边)。
+     * 如果列表不存在，一个空列表会被创建并执行 RPUSH 操作。
+     * 当列表存在但不是列表类型时，返回一个错误。
+     *
+     * @param key   key
+     * @param value value
+     * @return 执行 RPUSH 操作后，列表的长度。
+     */
+    @Override
+    public Long rPush(String key, String value) {
+        return list().rightPush(key, value);
+    }
+
+    /**
+     * Redis Rpush 命令用于将一个或多个值插入到列表的尾部(最右边)。
+     * 如果列表不存在，一个空列表会被创建并执行 RPUSH 操作。
+     * 当列表存在但不是列表类型时，返回一个错误。
+     *
+     * @param key   key
+     * @param value value
+     * @return 执行 RPUSH 操作后，列表的长度。
+     */
+    @Override
+    public Long rPush(String key, Object value) {
+        return list().rightPush(key, parseToString(value));
+    }
+
+    /**
+     * Redis Rpush 命令用于将一个或多个值插入到列表的尾部(最右边)。
+     * 如果列表不存在，一个空列表会被创建并执行 RPUSH 操作。
+     * 当列表存在但不是列表类型时，返回一个错误。
+     *
+     * @param key    key
+     * @param values value
+     * @return 执行 RPUSH 操作后，列表的长度。
+     */
+    @Override
+    public Long rPush(String key, String... values) {
+        return list().rightPushAll(key, values);
+    }
+
+    /**
+     * Redis Rpush 命令用于将一个或多个值插入到列表的尾部(最右边)。
+     * 如果列表不存在，一个空列表会被创建并执行 RPUSH 操作。
+     * 当列表存在但不是列表类型时，返回一个错误。
+     *
+     * @param key    key
+     * @param values value
+     * @return 执行 RPUSH 操作后，列表的长度。
+     */
+    @Override
+    public Long rPush(String key, Object... values) {
+        if (Objects.isNull(values)) {
+            throw new IllegalArgumentException("rpush error");
+        }
+        return rPush(key, Arrays.asList(values));
+    }
+
+    /**
+     * Redis Rpush 命令用于将一个或多个值插入到列表的尾部(最右边)。
+     * 如果列表不存在，一个空列表会被创建并执行 RPUSH 操作。
+     * 当列表存在但不是列表类型时，返回一个错误。
+     *
+     * @param key    key
+     * @param values value
+     * @return 执行 RPUSH 操作后，列表的长度。
+     */
+    @Override
+    public Long rPush(String key, List<Object> values) {
+        List<String> result = values.stream().map(this::parseToString).collect(Collectors.toList());
+        return list().rightPushAll(key, result);
+    }
+
+
+    /**
+     * Redis Rpush 命令用于将一个或多个值插入到列表的尾部(最右边)。
+     * 如果列表不存在，一个空列表会被创建并执行 RPUSH 操作。
+     * 当列表存在但不是列表类型时，返回一个错误。
+     *
+     * @param key    key
+     * @param values value
+     * @return 执行 RPUSH 操作后，列表的长度。
+     */
+    @Override
+    public Long rPush(String key, Collection<String> values) {
+        return list().rightPushAll(key, values);
+    }
+
+    /**
+     * 用于在列表的元素前或者后插入元素。
+     * 当指定元素不存在于列表中时，不执行任何操作。
+     * 当列表不存在时，被视为空列表，不执行任何操作。
+     * 如果 key 不是列表类型，返回一个错误。
+     * <p>
+     * 将值 value 插入到列表 key 当中，位于值 pivot 之前或之后。
+     *
+     * @param key   key
+     * @param pivot pivot
+     * @param value value
+     * @return 如果命令执行成功，返回插入操作完成之后，列表的长度。
+     * 如果没有找到指定元素 ，返回 -1 。 如果 key 不存在或为空列表，返回 0
+     */
+    @Override
+    public Long lAppend(String key, String pivot, String value) {
+        return list().rightPush(key, pivot, value);
+    }
+
+    /**
+     * Redis Rpushx 命令用于将一个值插入到已存在的列表尾部(最右边)。
+     * 如果列表不存在，操作无效。
+     *
+     * @param key   key
+     * @param value value
+     * @return 执行 Rpushx 操作后，列表的长度。
+     */
+    @Override
+    public Long rPushX(String key, String value) {
+        return list().rightPushIfPresent(key, value);
+    }
+
+    /**
+     * Redis Lset 通过索引来设置元素的值。
+     * 当索引参数超出范围，或对一个空列表进行 LSET 时，返回一个错误。
+     * LSET KEY_NAME INDEX VALUE
+     *
+     * @param key
+     * @param index
+     * @param value
+     */
+    @Override
+    public void lSet(String key, long index, String value) {
+        list().set(key, index, value);
+    }
+
+    /**
+     * Redis Lrem 根据参数 COUNT 的值，移除列表中与参数 VALUE 相等的元素。
+     * COUNT 的值可以是以下几种：
+     * count > 0 : 从表头开始向表尾搜索，移除与 VALUE 相等的元素，数量为 COUNT 。
+     * count < 0 : 从表尾开始向表头搜索，移除与 VALUE 相等的元素，数量为 COUNT 的绝对值。
+     * count = 0 : 移除表中所有与 VALUE 相等的值。
+     *
+     * @param key   key
+     * @param count count个元素，并且根据正负来决定方向
+     * @param value value
+     * @return 被移除元素的数量。 列表不存在时返回 0 。
+     */
+    @Override
+    public Long lRem(String key, long count, String value) {
+        return list().remove(key, count, value);
+    }
+
+    /**
+     * Redis Lindex 命令用于通过索引获取列表中的元素。你也可以使用负数下标，
+     * 以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。
+     *
+     * @param key   key
+     * @param index index
+     * @return 列表中下标为指定索引值的元素。 如果指定索引值不在列表的区间范围内，返回 nil 。
+     */
+    @Override
+    public String lIndex(String key, long index) {
+        return list().index(key, index);
+    }
+
+    /**
+     * Redis Lpop 命令用于移除并返回列表的第一个元素。
+     *
+     * @param key key
+     * @return 列表的第一个元素。 当列表 key 不存在时，返回 nil 。
+     */
+    @Override
+    public String lPop(String key) {
+        return list().leftPop(key);
+    }
+
+    /**
+     * Redis Blpop 命令移出并获取列表的第一个元素，
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
+     *
+     * @param key     key
+     * @param timeout timeout
+     * @param unit    unit
+     * @return 如果列表为空，返回一个 nil 。 否则返回被弹出元素的值。
+     */
+    @Override
+    public String bLPop(String key, long timeout, TimeUnit unit) {
+        return list().leftPop(key, timeout, unit);
+    }
+
+    /**
+     * Redis Brpop 命令移出并获取列表的最后一个元素，
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
+     *
+     * @param key     key
+     * @param timeout timeout
+     * @param unit    unit
+     * @return 如果列表为空，返回一个 nil 。 否则返回被弹出元素的值。
+     */
+    @Override
+    public String bRpop(String key, long timeout, TimeUnit unit) {
+        return list().rightPop(key, timeout, unit);
+    }
+
+    /**
+     * Redis Rpoplpush 命令用于移除列表的最后一个元素，并将该元素添加到另一个列表并返回。
+     *
+     * @param sourceKey sourceKey
+     * @param destKey   destKey
+     * @return 被弹出的元素
+     */
+    @Override
+    public String rPopLpush(String sourceKey, String destKey) {
+        return list().rightPopAndLeftPush(sourceKey, destKey);
+    }
+
+    /**
+     * Redis Brpoplpush 命令从列表中取出最后一个元素，并插入到另外一个列表的头部；
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
+     *
+     * @param sourceKey sourceKey
+     * @param destKey   destKey
+     * @param timeout   timeout
+     * @return 假如在指定时间内没有任何元素被弹出，则返回一个 nil 和等待时长。
+     * 反之，返回一个含有两个元素的列表，第一个元素是被弹出元素的值，第二个元素是等待时长。
+     */
+    @Override
+    public String bRPopLpush(String sourceKey, String destKey, long timeout, TimeUnit unit) {
+        return list().rightPopAndLeftPush(sourceKey, destKey, timeout, unit);
+    }
+
+    //------------------------- set ------------------------
+
+
+    /**
+     * Redis Sadd 命令将一个或多个成员元素加入到集合中，已经存在于集合的成员元素将被忽略。
+     * 假如集合 key 不存在，则创建一个只包含添加的元素作成员的集合。
+     * 当集合 key 不是集合类型时，返回一个错误。
+     *
+     * @param key    key
+     * @param values values
+     * @return 被添加到集合中的新元素的数量，不包括被忽略的元素。
+     */
+    @Override
+    public Long sAdd(String key, String... values) {
+        return set().add(key, values);
+    }
+
+
+    /**
+     * Redis Sadd 命令将一个或多个成员元素加入到集合中，已经存在于集合的成员元素将被忽略。
+     * 假如集合 key 不存在，则创建一个只包含添加的元素作成员的集合。
+     * 当集合 key 不是集合类型时，返回一个错误。
+     *
+     * @param key    key
+     * @param values values
+     * @return 被添加到集合中的新元素的数量，不包括被忽略的元素。
+     */
+    @Override
+    public Long sAdd(String key, Object... values) {
+        if (Objects.isNull(values)) {
+            throw new IllegalArgumentException("sadd error");
+        }
+        int length = values.length;
+        String[] valueArr = new String[length];
+        for (int i = 0; i < length; i++) {
+            valueArr[i] = parseToString(values[i]);
+        }
+        return set().add(key, valueArr);
+    }
+
+    /**
+     * Redis Srem 命令用于移除集合中的一个或多个成员元素，不存在的成员元素会被忽略。
+     * 当 key 不是集合类型，返回一个错误。
+     *
+     * @param key    key
+     * @param values values
+     * @return 被成功移除的元素的数量，不包括被忽略的元素。
+     */
+    @Override
+    public Long sRem(String key, Object... values) {
+        if (Objects.isNull(values)) {
+            throw new IllegalArgumentException("srem error");
+        }
+        return set().remove(key, values);
+    }
+
+    /**
+     * Redis Spop 命令用于移除集合中的指定 key 的一个或多个随机元素，移除后会返回移除的元素。
+     * 该命令类似 Srandmember 命令，但 SPOP 将随机元素从集合中移除并返回，
+     * 而 Srandmember 则仅仅返回随机元素，而不对集合进行任何改动。
+     *
+     * @param key key
+     * @return 被移除的随机元素。 当集合不存在或是空集时，返回 nil 。
+     */
+    @Override
+    public String sPop(String key) {
+        return set().pop(key);
+    }
+
+    /**
+     * Redis Spop 命令用于移除集合中的指定 key 的一个或多个随机元素，移除后会返回移除的元素。
+     * 该命令类似 Srandmember 命令，但 SPOP 将随机元素从集合中移除并返回，
+     * 而 Srandmember 则仅仅返回随机元素，而不对集合进行任何改动。
+     *
+     * @param key key
+     * @return 被移除的随机元素。 当集合不存在或是空集时，返回 nil 。
+     */
+    @Override
+    public <T> T sPop(String key, Class<T> clazz) {
+        return parseToObject(set().pop(key), clazz);
+    }
+
+    /**
+     * Redis Spop 命令用于移除集合中的指定 key 的多个随机元素，移除后会返回移除的元素。
+     *
+     * @param key   key
+     * @param count count
+     * @return 被移除的随机元素。 当集合不存在或是空集时，返回 nil 。
+     */
+    @Override
+    public List<String> sPop(String key, long count) {
+        return set().pop(key, count);
+    }
+
+    /**
+     * Redis Spop 命令用于移除集合中的指定 key 的多个随机元素，移除后会返回移除的元素。
+     *
+     * @param key   key
+     * @param count count
+     * @param clazz clazz
+     * @return 被移除的随机元素。 当集合不存在或是空集时，返回 nil 。
+     */
+    @Override
+    public <T> List<T> sPop(String key, long count, Class<T> clazz) {
+        List<String> randomElements = set().pop(key, count);
+        return Optional.ofNullable(randomElements).map(list ->
+                        list.stream()
+                                .filter(Objects::nonNull)
+                                .map(s -> parseToObject(s, clazz))
+                                .collect(Collectors.toList()))
+                .orElse(null);
+    }
+
+    /**
+     * Redis Scard 命令返回集合中元素的数量。
+     *
+     * @param key key
+     * @return 集合的数量。 当集合 key 不存在时，返回 0 。
+     */
+    @Override
+    public Long sCard(String key) {
+        return set().size(key);
+    }
+
+    /**
+     * Redis Smove 命令将指定成员 member 元素从 source 集合移动到 destination 集合。
+     * SMOVE 是原子性操作。
+     * 如果 source 集合不存在或不包含指定的 member 元素，则 SMOVE 命令不执行任何操作，仅返回 0 。否则， member 元素从 source 集合中被移除，并添加到 destination 集合中去。
+     * 当 destination 集合已经包含 member 元素时， SMOVE 命令只是简单地将 source 集合中的 member 元素删除。
+     * 当 source 或 destination 不是集合类型时，返回一个错误。
+     *
+     * @param key     key
+     * @param value   value
+     * @param destKey destKey
+     * @return 如果成员元素被成功移除，返回 1 。 如果成员元素不是 source 集合的成员，
+     * 并且没有任何操作对 destination 集合执行，那么返回 0
+     */
+    @Override
+    public Boolean sMove(String key, String value, String destKey) {
+        return set().move(key, value, destKey);
+    }
+
+    /**
+     * Sismember 命令判断元素是否是集合的成员。
+     *
+     * @param key   key
+     * @param value value
+     * @return 如果成员元素是集合的成员，返回 1 。
+     * 如果成员元素不是集合的成员，或 key 不存在，返回 0 。
+     */
+    @Override
+    public Boolean sIsMember(String key, String value) {
+        return set().isMember(key, value);
+    }
+
+    /**
+     * Redis Sinter 命令返回给定所有给定集合的交集。
+     * 不存在的集合 key 被视为空集。 当给定集合当中有一个空集时，结果也为空集
+     *
+     * @param key      key
+     * @param otherKey otherKey
+     * @return 交集成员的列表。
+     */
+    @Override
+    public Set<String> sInter(String key, String otherKey) {
+        return set().intersect(key, otherKey);
+    }
+
+    /**
+     * Redis Sinter 命令返回给定所有给定集合的交集。
+     * 不存在的集合 key 被视为空集。 当给定集合当中有一个空集时，结果也为空集
+     *
+     * @param key       key
+     * @param otherKeys otherKeys
+     * @return 交集成员的列表。
+     */
+    @Override
+    public Set<String> sInter(String key, Collection<String> otherKeys) {
+        return set().intersect(key, otherKeys);
+    }
+
+    /**
+     * Redis Sinter 命令返回给定所有给定集合的交集。
+     * 不存在的集合 key 被视为空集。 当给定集合当中有一个空集时，结果也为空集
+     *
+     * @param otherKeys otherKeys
+     * @return 交集成员的列表。
+     */
+    // @Override
+    // public Set<String> sInter(Collection<String> otherKeys) {
+    //     return set().intersect(otherKeys);
+    // }
+
+    /**
+     * Redis Sinterstore 命令将给定集合之间的交集存储在指定的集合中。
+     * 如果指定的集合已经存在，则将其覆盖。
+     *
+     * @param key     key
+     * @param other   other
+     * @param destKey destKey 指定的集合
+     * @return destKey
+     */
+    @Override
+    public Long sInterstore(String key, String other, String destKey) {
+        return set().intersectAndStore(key, other, destKey);
+    }
+
+
+    /**
+     * Redis Sinterstore 命令将给定集合之间的交集存储在指定的集合中。
+     * 如果指定的集合已经存在，则将其覆盖。
+     *
+     * @param key       key
+     * @param otherKeys otherKeys
+     * @param destKey   destKey 指定的集合
+     * @return destKey
+     */
+    @Override
+    public Long sInterstore(String key, Collection<String> otherKeys, String destKey) {
+        return set().intersectAndStore(key, otherKeys, destKey);
+    }
+
+
+    /**
+     * Redis Sinterstore 命令将给定集合之间的交集存储在指定的集合中。
+     * 如果指定的集合已经存在，则将其覆盖。
+     *
+     * @param keys    keys
+     * @param destKey destKey 指定的集合
+     * @return destKey
+     */
+    // @Override
+    // public Long sInterstore(Collection<String> keys, String destKey) {
+    //     return set().intersectAndStore(keys, destKey);
+    // }
+
+    /**
+     * Redis Sunion 命令返回给定集合的并集。不存在的集合 key 被视为空集。
+     *
+     * @param key      key
+     * @param otherKey otherKey
+     * @return 并集成员的列表。
+     */
+    @Override
+    public Set<String> sUnion(String key, String otherKey) {
+        return set().union(key, otherKey);
+    }
+
+    /**
+     * Redis Sunion 命令返回给定集合的并集。不存在的集合 key 被视为空集。
+     *
+     * @param key       key
+     * @param otherKeys otherKeys
+     * @return 并集成员的列表。
+     */
+    @Override
+    public Set<String> sUnion(String key, Collection<String> otherKeys) {
+        return set().union(key, otherKeys);
+    }
+
+
+    /**
+     * Redis Sunion 命令返回给定集合的并集。不存在的集合 key 被视为空集。
+     *
+     * @param keys keys
+     * @return 并集成员的列表。
+     */
+    // @Override
+    // public Set<String> sUnion(Collection<String> keys) {
+    //     return set().union(keys);
+    // }
+
+    /**
+     * Redis Sunionstore 命令将给定集合的并集存储在指定的集合 destination 中。
+     * 如果 destination 已经存在，则将其覆盖。
+     *
+     * @param key      key
+     * @param otherKey otherKey
+     * @param destKey  destKey
+     * @return 结果集中的元素数量。
+     */
+    @Override
+    public Long sUnionStore(String key, String otherKey, String destKey) {
+        return set().unionAndStore(key, otherKey, destKey);
+    }
+
+    /**
+     * Redis Sunionstore 命令将给定集合的并集存储在指定的集合 destination 中。
+     * 如果 destination 已经存在，则将其覆盖。
+     *
+     * @param key       key
+     * @param otherKeys otherKeys
+     * @param destKey   destKey
+     * @return 结果集中的元素数量。
+     */
+    @Override
+    public Long sUnionStore(String key, Collection<String> otherKeys, String destKey) {
+        return set().unionAndStore(key, otherKeys, destKey);
+    }
+
+    /**
+     * Redis Sunionstore 命令将给定集合的并集存储在指定的集合 destination 中。
+     * 如果 destination 已经存在，则将其覆盖。
+     *
+     * @param keys    keys
+     * @param destKey destKey
+     * @return 结果集中的元素数量。
+     */
+    // @Override
+    // public Long sUnionStore(Collection<String> keys, String destKey) {
+    //     return set().unionAndStore(keys, destKey);
+    // }
+
+    /**
+     * Redis Sdiff 命令返回第一个集合与其他集合之间的差异，也可以认为说第一个集合中独有的元素。
+     * 不存在的集合 key 将视为空集。
+     * 差集的结果来自前面的 FIRST_KEY ,而不是后面的 OTHER_KEY1，
+     * 也不是整个 FIRST_KEY OTHER_KEY1..OTHER_KEYN 的差集。
+     *
+     * @param key      key
+     * @param otherKey otherKey
+     * @return 包含差集成员的列表
+     */
+    @Override
+    public Set<String> sDiff(String key, String otherKey) {
+        return set().difference(key, otherKey);
+    }
+
+
+    /**
+     * Redis Sdiff 命令返回第一个集合与其他集合之间的差异，也可以认为说第一个集合中独有的元素。
+     * 不存在的集合 key 将视为空集。
+     * 差集的结果来自前面的 FIRST_KEY ,而不是后面的 OTHER_KEY1，
+     * 也不是整个 FIRST_KEY OTHER_KEY1..OTHER_KEYN 的差集。
+     *
+     * @param key       key
+     * @param otherKeys otherKeys
+     * @return 包含差集成员的列表
+     */
+    @Override
+    public Set<String> sDiff(String key, Collection<String> otherKeys) {
+        return set().difference(key, otherKeys);
+    }
+
+    /**
+     * Redis Sdiff 命令返回第一个集合与其他集合之间的差异，也可以认为说第一个集合中独有的元素。
+     * 不存在的集合 key 将视为空集。
+     * 差集的结果来自前面的 FIRST_KEY ,而不是后面的 OTHER_KEY1，
+     * 也不是整个 FIRST_KEY OTHER_KEY1..OTHER_KEYN 的差集。
+     *
+     * @param keys keys
+     * @return 包含差集成员的列表
+     */
+    // @Override
+    // public Set<String> sDiff(Collection<String> keys) {
+    //     return set().difference(keys);
+    // }
+
+    /**
+     * Redis Sdiffstore 命令将给定集合之间的差集存储在指定的集合中。如果指定的集合 key 已存在，则会被覆盖。
+     *
+     * @param key      keys
+     * @param otherKey otherKey
+     * @param destKey  destKey
+     * @return 结果集中的元素数量。
+     */
+    @Override
+    public Long sDiffStore(String key, String otherKey, String destKey) {
+        return set().differenceAndStore(key, otherKey, destKey);
+    }
+
+    /**
+     * Redis Sdiffstore 命令将给定集合之间的差集存储在指定的集合中。如果指定的集合 key 已存在，则会被覆盖。
+     *
+     * @param key       key
+     * @param otherKeys otherKeys
+     * @param destKey   destKey
+     * @return 结果集中的元素数量。
+     */
+    @Override
+    public Long sDiffStore(String key, Collection<String> otherKeys, String destKey) {
+        return set().differenceAndStore(key, otherKeys, destKey);
+    }
+
+    /**
+     * Redis Sdiffstore 命令将给定集合之间的差集存储在指定的集合中。如果指定的集合 key 已存在，则会被覆盖。
+     *
+     * @param keys    keys
+     * @param destKey destKey
+     * @return 结果集中的元素数量。
+     */
+    // @Override
+    // public Long sDiffStore(Collection<String> keys, String destKey) {
+    //     return set().differenceAndStore(keys, destKey);
+    // }
+
+    /**
+     * Redis Smembers 命令返回集合中的所有的成员。 不存在的集合 key 被视为空集合。
+     *
+     * @param key key
+     * @return 集合中的所有成员。
+     */
+    @Override
+    public Set<String> sMembers(String key) {
+        return set().members(key);
+    }
+
+    /**
+     * Redis Srandmember 命令用于返回集合中的一个随机元素。
+     * 从 Redis 2.6 版本开始， Srandmember 命令接受可选的 count 参数：
+     * 如果 count 为正数，且小于集合基数，那么命令返回一个包含 count 个元素的数组，数组中的元素各不相同。
+     * 如果 count 大于等于集合基数，那么返回整个集合。
+     * 如果 count 为负数，那么命令返回一个数组，数组中的元素可能会重复出现多次，而数组的长度为 count 的绝对值。
+     * 该操作和 SPOP 相似，但 SPOP 将随机元素从集合中移除并返回，
+     * 而 Srandmember 则仅仅返回随机元素，而不对集合进行任何改动。
+     *
+     * @param key key
+     * @return 只提供集合 key 参数时，返回一个元素；如果集合为空，返回 nil 。
+     * 如果提供了 count 参数，那么返回一个数组；如果集合为空，返回空数组。
+     */
+    @Override
+    public String sRandMember(String key) {
+        return set().randomMember(key);
+    }
+
+    /**
+     * Redis Srandmember 命令用于返回集合中的一个随机元素。
+     * 从 Redis 2.6 版本开始， Srandmember 命令接受可选的 count 参数：
+     * 如果 count 为正数，且小于集合基数，那么命令返回一个包含 count 个元素的数组，数组中的元素各不相同。
+     * 如果 count 大于等于集合基数，那么返回整个集合。
+     * 如果 count 为负数，那么命令返回一个数组，数组中的元素可能会重复出现多次，而数组的长度为 count 的绝对值。
+     * 该操作和 SPOP 相似，但 SPOP 将随机元素从集合中移除并返回，
+     * 而 Srandmember 则仅仅返回随机元素，而不对集合进行任何改动。
+     *
+     * @param key   key
+     * @param count count
+     * @return 只提供集合 key 参数时，返回一个元素；如果集合为空，返回 nil 。
+     * 如果提供了 count 参数，那么返回一个数组；如果集合为空，返回空数组。
+     */
+    @Override
+    public Set<String> sDistinctRandomMembers(String key, long count) {
+        return set().distinctRandomMembers(key, count);
+    }
+
+
+    /**
+     * Redis Srandmember 命令用于返回集合中的一个随机元素。
+     * 从 Redis 2.6 版本开始， Srandmember 命令接受可选的 count 参数：
+     * 如果 count 为正数，且小于集合基数，那么命令返回一个包含 count 个元素的数组，数组中的元素各不相同。
+     * 如果 count 大于等于集合基数，那么返回整个集合。
+     * 如果 count 为负数，那么命令返回一个数组，数组中的元素可能会重复出现多次，而数组的长度为 count 的绝对值。
+     * 该操作和 SPOP 相似，但 SPOP 将随机元素从集合中移除并返回，
+     * 而 Srandmember 则仅仅返回随机元素，而不对集合进行任何改动。
+     *
+     * @param key   key
+     * @param count count
+     * @return 只提供集合 key 参数时，返回一个元素；如果集合为空，返回 nil 。
+     * 如果提供了 count 参数，那么返回一个数组；如果集合为空，返回空数组。
+     */
+    @Override
+    public List<String> sRandMembers(String key, long count) {
+        return set().randomMembers(key, count);
+    }
+
+    /**
+     * Redis Sscan 命令用于迭代集合中键的元素，Sscan 继承自 Scan。
+     *
+     * @param key         key
+     * @param scanOptions scanOptions
+     * @return Cursor<String>
+     */
+    @Override
+    public Cursor<String> sScan(String key, ScanOptions scanOptions) {
+        return set().scan(key, scanOptions);
+    }
+
+    /**
+     * Redis Sscan 命令用于迭代集合中键的元素，Sscan 继承自 Scan。
+     *
+     * @param key      key
+     * @param consumer consumer
+     */
+    @Override
+    public void sScan(String key, Consumer<String> consumer) {
+        ScanOptions scanOptions = ScanOptions.scanOptions()
+                .match("*")
+                .count(10000)
+                .build();
+        try (Cursor<String> cursor = set().scan(key, scanOptions)) {
+            while (cursor.hasNext()) {
+                consumer.accept(cursor.next());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    /**
+     * Redis Sscan 命令用于迭代集合中键的元素，Sscan 继承自 Scan。
+     *
+     * @param key      key
+     * @param clazz    clazz
+     * @param consumer consumer
+     */
+    @Override
+    public <T> void sScan(String key, Class<T> clazz, Consumer<T> consumer) {
+        ScanOptions scanOptions = ScanOptions.scanOptions()
+                .match("*")
+                .count(10000)
+                .build();
+        try (Cursor<String> cursor = set().scan(key, scanOptions)) {
+            while (cursor.hasNext()) {
+                consumer.accept(parseToObject(cursor.next(), clazz));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     //------------------------- zset ------------------------
 
 
@@ -1297,7 +2080,7 @@ public class DefaultRedisOperations implements RedisOperations {
                 consumer.accept(zScan.next());
             }
         } catch (IOException e) {
-            log.error("[{Redis ZSCAN}]: >> zScan error~~", e);
+            throw new RuntimeException(e);
         }
     }
 
